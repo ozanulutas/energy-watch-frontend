@@ -4,6 +4,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
+    <p>{{ $t('message') }}</p>
+
     <router-view/>
   </div>
 </template>
