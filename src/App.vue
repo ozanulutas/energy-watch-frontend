@@ -1,8 +1,7 @@
 <template>
   <div>
     <TheNavbar />
-    <p>{{ $t('message') }}</p>
-
+    
     <router-view />
   </div>
 </template>

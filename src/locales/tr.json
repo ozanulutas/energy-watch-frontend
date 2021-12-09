@@ -1,3 +1,24 @@
 {
-  "message": "sa"
+  "navbar": {
+    "link": {
+      "home": "Ana Sayfa",
+      "dashboard": "Panel",
+      "profile": "Profil",
+      "logIn": "Giriş",
+      "logOut": "Çıkış Yap",
+      "register": "Üye Ol"
+    },
+    "dropdown": {
+      "lang": "Dil",
+      "user": "Kullanıcı"
+    }
+  },
+  "modal": {
+    "logIn": {
+      "title": "Giriş Yap"
+    },
+    "register": {
+      "title": "Üye Ol"
+    }
+  }
 }

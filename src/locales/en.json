@@ -1,6 +1,24 @@
 {
-  "message": "hello i18n !!",
   "navbar": {
-    
+    "link": {
+      "home": "Home",
+      "dashboard": "Dashboard",
+      "profile": "Profile",
+      "logIn": "Log In",
+      "logOut": "Log Out",
+      "register": "Register"
+    },
+    "dropdown": {
+      "lang": "Lang",
+      "user": "User"
+    }
+  },
+  "modal": {
+    "logIn": {
+      "title": "Log In"
+    },
+    "register": {
+      "title": "Register"
+    }
   }
 }

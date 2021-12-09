@@ -1,6 +1,6 @@
 <template>
   <b-nav-item-dropdown
-    text="Lang"
+    :text="$t('navbar.dropdown.lang')"
     right
   >
     <b-dropdown-item
