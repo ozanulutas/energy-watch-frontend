@@ -3,6 +3,7 @@
     toggleable="md"
     type="dark"
     variant="dark"
+    class="py-3"
   >
     <b-container>
       <b-navbar-brand to="/">Energy <i class="fas fa-bolt"></i> Watch</b-navbar-brand>
@@ -20,15 +21,7 @@
 
         <b-navbar-nav class="ms-auto">
 
-          <b-nav-item-dropdown
-            text="Lang"
-            right
-          >
-            <b-dropdown-item href="#">EN</b-dropdown-item>
-            <b-dropdown-item href="#">ES</b-dropdown-item>
-            <b-dropdown-item href="#">RU</b-dropdown-item>
-            <b-dropdown-item href="#">FA</b-dropdown-item>
-          </b-nav-item-dropdown>
+          <TheLocaleChanger />
 
           <b-nav-item-dropdown right>
             <template #button-content>
@@ -44,5 +37,13 @@
 </template>
 
 <script>
-export default {};
+import TheLocaleChanger from "@/components/TheLocaleChanger"
+
+export default {
+  name: "Navbar",
+  components: {
+    TheLocaleChanger,
+  },
+
+};
 </script>
