@@ -1,12 +1,18 @@
 {
+  "common": {
+    "yes": "Evet",
+    "no": "Hayır",
+    "logIn": "Giriş",
+    "register": "Üye Ol"
+  },
   "navbar": {
     "link": {
       "home": "Ana Sayfa",
       "dashboard": "Panel",
       "profile": "Profil",
-      "logIn": "Giriş",
+      "logIn": "@:common.logIn",
       "logOut": "Çıkış Yap",
-      "register": "Üye Ol"
+      "register": "@:common.register"
     },
     "dropdown": {
       "lang": "Dil",
@@ -15,10 +21,10 @@
   },
   "modal": {
     "logIn": {
-      "title": "Giriş Yap"
+      "title": "@:common.logIn"
     },
     "register": {
-      "title": "Üye Ol"
+      "title": "@:common.register"
     }
   }
 }

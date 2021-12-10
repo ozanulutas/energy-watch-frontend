@@ -1,12 +1,18 @@
 {
+  "common": {
+    "yes": "Yes",
+    "no": "No",
+    "logIn": "Log In",
+    "register": "Register"
+  },
   "navbar": {
     "link": {
       "home": "Home",
       "dashboard": "Dashboard",
       "profile": "Profile",
-      "logIn": "Log In",
+      "logIn": "@:common.logIn",
       "logOut": "Log Out",
-      "register": "Register"
+      "register": "@:common.register"
     },
     "dropdown": {
       "lang": "Lang",
@@ -15,10 +21,16 @@
   },
   "modal": {
     "logIn": {
-      "title": "Log In"
+      "title": "@:common.logIn",
+      "emailLabel": "Email Address",
+      "passwordLabel": "Password",
+      "rememberMe": "Remember Me",
+      "submitBtn": "@:common.logIn",
+      "registerBtn": "@:common.register Now!",
+      "callToAction": "Don't you have an account yet?"
     },
     "register": {
-      "title": "Register"
+      "title": "@:common.register"
     }
   }
 }

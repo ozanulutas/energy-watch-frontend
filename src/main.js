@@ -19,4 +19,4 @@ const app = new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-store.$app = app
+store.$app = app  // To reach app instance from store

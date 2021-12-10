@@ -11,11 +11,6 @@ export default {
   name: "Dashboard",
   created() {
     this.fetchFacilities()
-    this.$bvToast.toast('Toast body content', {
-            title: `Welcome`,
-            // variant: variant,
-            solid: true
-          })
   },
   methods: {
     ...mapActions(["fetchFacilities"])

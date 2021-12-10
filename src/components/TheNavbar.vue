@@ -17,15 +17,16 @@
         <b-navbar-nav>
           <b-nav-item to="/">{{ $t('navbar.link.home') }}</b-nav-item>
           <b-nav-item to="/dashboard">{{ $t('navbar.link.dashboard') }}</b-nav-item>
+          <b-btn v-b-modal.login-modal>{{ $t('navbar.link.logIn') }}</b-btn>
         </b-navbar-nav>
 
-        <b-navbar-nav class="ms-auto">
+        <b-navbar-nav class="ml-auto">
 
           <TheLocaleChanger />
 
           <b-nav-item-dropdown right>
             <template #button-content>
-              <em>{{ $t('navbar.dropdown.user') }}</em>
+              {{ $t('navbar.dropdown.user') }}
             </template>
             <b-dropdown-item to="#">{{ $t('navbar.link.profile') }}</b-dropdown-item>
             <b-dropdown-item v-b-modal.login-modal>{{ $t('navbar.link.logIn') }}</b-dropdown-item>

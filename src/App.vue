@@ -13,6 +13,11 @@ export default {
   name: "App",
   components: {
     TheNavbar,
+  },
+  beforeDestroy() {
+    if(!localStorage.getItem("rememberUser")) {
+      localStorage.removeItem("user")
+    }
   }
 }
 </script>
