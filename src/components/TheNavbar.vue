@@ -18,6 +18,7 @@
           <b-nav-item to="/">{{ $t('navbar.link.home') }}</b-nav-item>
           <b-nav-item to="/dashboard">{{ $t('navbar.link.dashboard') }}</b-nav-item>
           <b-btn v-b-modal.login-modal>{{ $t('navbar.link.logIn') }}</b-btn>
+          <b-btn v-b-modal.register-modal>{{ $t('navbar.link.register') }}</b-btn>
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">

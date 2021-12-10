@@ -18,13 +18,5 @@
       "lang": "Dil",
       "user": "Kullanıcı"
     }
-  },
-  "modal": {
-    "logIn": {
-      "title": "@:common.logIn"
-    },
-    "register": {
-      "title": "@:common.register"
-    }
   }
 }

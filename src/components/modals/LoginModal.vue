@@ -2,20 +2,20 @@
   <b-modal
     ref="login-modal"
     id="login-modal"
-    :title="$t('modal.logIn.title')"
+    :title="$t('logIn.modal.title')"
     hide-footer
   >
     <b-form @submit.prevent="handleSubmit">
       <!-- Email -->
       <b-form-group
-        :label="$t('modal.logIn.emailLabel')"
+        :label="$t('logIn.form.emailLabel')"
         class="mb-3"
       >
         <b-form-input v-model="user.email"></b-form-input>
       </b-form-group>
       <!-- Password -->
       <b-form-group
-        :label="$t('modal.logIn.passwordLabel')"
+        :label="$t('logIn.form.passwordLabel')"
         class="mb-3"
       >
         <b-input-group>
@@ -34,24 +34,25 @@
         </b-input-group>
       </b-form-group>
 
-      <b-form-checkbox v-model="rememberUser">{{ $t('modal.logIn.rememberMe') }}</b-form-checkbox>
+      <b-form-checkbox v-model="rememberUser">{{ $t('logIn.form.rememberMe') }}</b-form-checkbox>
 
       <div class="d-flex justify-content-end">
         <b-button
           type="submit"
           variant="primary"
-        >{{ $t('modal.logIn.submitBtn') }}</b-button>
+        >{{ $t('logIn.modal.submitBtn') }}</b-button>
       </div>
     </b-form>
     <hr>
+    <!-- Call to action -->
     <p class="d-flex align-items-center justify-content-center">
-      {{ $t('modal.logIn.callToAction') }}
+      {{ $t('logIn.modal.callToAction') }}
       <b-button
         variant="link"
         class="p-0 ml-1"
         v-b-modal.register-modal
         @click="$refs['login-modal'].hide()"
-      >{{ $t('modal.logIn.registerBtn') }}</b-button>
+      >{{ $t('logIn.modal.registerBtn') }}</b-button>
     </p>
   </b-modal>
 </template>

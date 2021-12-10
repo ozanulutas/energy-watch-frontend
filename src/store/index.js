@@ -32,6 +32,7 @@ export default new Vuex.Store({
           // Set default token header for axios
           axios.defaults.headers.common['x-access-token'] = resp.data.user.token
 
+          // Set user info to local storage
           if(payload.rememberUser) {
             localStorage.setItem("user", JSON.stringify(resp.data.user))
             localStorage.setItem("rememberUser", true)
@@ -53,6 +54,29 @@ export default new Vuex.Store({
           })
         })
     },
+    // Registers a user
+    register(payload) {
+      return axios.post("/user/register", payload.user)
+        .then(resp => {
+
+          // Show welcome tast
+          this.$app.$bvToast.toast("Registeration is successful", {
+            title: "You can login now.",
+            toaster: "b-toaster-bottom-center",
+          })
+
+          return resp
+        })
+        .catch(err => {
+          // Show error toast
+          this.$app.$bvToast.toast(err.response.data.message, {
+            title: "Unsuccessful registeration",
+            toaster: "b-toaster-bottom-center",
+          })
+        })
+    },
+
+    // Fetches facility records
     fetchFacilities({ commit }) {
       return axios.get("/facilities")
         .then(resp => {

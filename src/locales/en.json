@@ -19,18 +19,33 @@
       "user": "User"
     }
   },
-  "modal": {
-    "logIn": {
+  "logIn": {
+    "modal": {
       "title": "@:common.logIn",
-      "emailLabel": "Email Address",
-      "passwordLabel": "Password",
-      "rememberMe": "Remember Me",
       "submitBtn": "@:common.logIn",
       "registerBtn": "@:common.register Now!",
       "callToAction": "Don't you have an account yet?"
     },
-    "register": {
-      "title": "@:common.register"
+    "form": {
+      "emailLabel": "Email Address",
+      "passwordLabel": "Password",
+      "rememberMe": "Remember Me"
     }
+  },
+  "register": {
+    "modal": {
+      "title": "@:common.register",
+      "submitBtn": "@:common.register",
+      "registerBtn": "@:common.logIn",
+      "callToAction": "Are you already a member?"
+    },
+    "form": {
+      "nameLabel": "Name",
+      "emailLabel": "Email Address",
+      "roleLabel": "User Role",
+      "passwordLabel": "Password",
+      "confirmPasswordLabel": "Confirm Password"
+    }
+    
   }
 }
