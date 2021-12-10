@@ -21,7 +21,7 @@ export default new Vuex.Store({
       state.user = payload
     },
     SET_USER_ROLES(state, payload) {
-      state.facilities = payload
+      state.userRoles = payload
     },
     SET_FACILITIES(state, payload) {
       state.facilities = payload
@@ -60,8 +60,8 @@ export default new Vuex.Store({
         })
     },
     // Registers a user
-    register(payload) {
-      return axios.post("/user/register", payload.user)
+    register(_, payload) {
+      return axios.post("/user/register", payload)
         .then(resp => {
 
           // Show welcome tast

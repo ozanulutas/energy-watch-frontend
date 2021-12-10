@@ -42,7 +42,7 @@
     "form": {
       "nameLabel": "Name",
       "emailLabel": "Email Address",
-      "roleLabel": "User Role",
+      "roleLabel": "Role",
       "passwordLabel": "Password",
       "confirmPasswordLabel": "Confirm Password"
     }
