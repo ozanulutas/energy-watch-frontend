@@ -11,14 +11,23 @@
         :label="$t('logIn.form.emailLabel')"
         class="mb-3"
       >
-        <b-form-input v-model="user.email"></b-form-input>
+        <b-form-input
+          v-model="user.email"
+          :state="validateState('user.email')"
+        ></b-form-input>
+        <b-form-invalid-feedback>
+          This field is required
+        </b-form-invalid-feedback>
       </b-form-group>
       <!-- Password -->
       <b-form-group
         :label="$t('logIn.form.passwordLabel')"
         class="mb-3"
       >
-        <BasePasswordInput v-model="user.password"/>
+        <BasePasswordInput
+          v-model="user.password"
+          :state="validateState('user.password')"
+        />
       </b-form-group>
 
       <!-- Remember -->
@@ -48,13 +57,16 @@
 
 <script>
 import { mapActions } from "vuex";
-import BasePasswordInput from "@/components/BasePasswordInput"
+import BasePasswordInput from "@/components/BasePasswordInput";
+import validateState from "@/mixins/validation/validate-state";
+import { required } from "vuelidate/lib/validators";
 
 export default {
   name: "LoginModal",
   components: {
     BasePasswordInput,
   },
+  mixins: [validateState],
   data() {
     return {
       rememberUser: false,
@@ -64,11 +76,27 @@ export default {
       },
     };
   },
+  validations: {
+    user: {
+      email: {
+        required,
+      },
+      password: {
+        required,
+      },
+    },
+  },
   methods: {
     ...mapActions(["login"]),
 
     // Login and hide modal
     handleSubmit() {
+      this.$v.$touch();
+
+      if (this.$v.$error) {
+        return;
+      }
+
       this.login({
         user: this.user,
         rememberUser: this.rememberUser,
