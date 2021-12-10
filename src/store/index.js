@@ -11,12 +11,17 @@ export default new Vuex.Store({
     isLoggedIn: true,
     // User info
     user: {},
+    // User roles
+    userRoles: [],
     // Facility records
     facilities: []
   },
   mutations: {
     SET_USER(state, payload) {
       state.user = payload
+    },
+    SET_USER_ROLES(state, payload) {
+      state.facilities = payload
     },
     SET_FACILITIES(state, payload) {
       state.facilities = payload
@@ -71,6 +76,21 @@ export default new Vuex.Store({
           // Show error toast
           this.$app.$bvToast.toast(err.response.data.message, {
             title: "Unsuccessful registeration",
+            toaster: "b-toaster-bottom-center",
+          })
+        })
+    },
+
+    // Fetches usser role records
+    fetchUserRoles({ commit }) {
+      axios.get("/user-roles")
+        .then(resp => {
+          commit("SET_USER_ROLES", resp.data)
+        })
+        .catch(err => {
+          // Show error toast
+          this.$app.$bvToast.toast(err.response.data.message, {
+            title: "Error",
             toaster: "b-toaster-bottom-center",
           })
         })

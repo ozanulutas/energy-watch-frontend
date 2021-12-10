@@ -13,6 +13,7 @@
       >
         <b-form-input v-model="user.name"></b-form-input>
       </b-form-group>
+
       <!-- Email -->
       <b-form-group
         :label="$t('register.form.emailLabel')"
@@ -20,54 +21,30 @@
       >
         <b-form-input v-model="user.email"></b-form-input>
       </b-form-group>
-      <!-- Role -->
+
+      <!-- Roles -->
       <b-form-group
         :label="$t('register.form.roleLabel')"
         class="mb-3"
       >
         <b-form-input v-model="user.role"></b-form-input>
       </b-form-group>
+
       <!-- Password -->
       <b-form-group
         :label="$t('register.form.passwordLabel')"
         class="mb-3"
       >
-        <b-input-group>
-          <b-form-input
-            v-model="user.password"
-            :type="showPassword ? 'text' : 'password'"
-          ></b-form-input>
-          <b-input-group-append>
-            <b-input-group-text
-              class="bg-transparent"
-              @click="showPassword = !showPassword"
-            >
-              <i :class="`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`"></i>
-            </b-input-group-text>
-          </b-input-group-append>
-        </b-input-group>
+        <BasePasswordInput v-model="user.password"/>
       </b-form-group>
+
       <!-- Confirm Password -->
       <b-form-group
         :label="$t('register.form.confirmPasswordLabel')"
         class="mb-3"
       >
-        <b-input-group>
-          <b-form-input
-            v-model="user.password"
-            :type="showPassword ? 'text' : 'password'"
-          ></b-form-input>
-          <b-input-group-append>
-            <b-input-group-text
-              class="bg-transparent"
-              @click="showPassword = !showPassword"
-            >
-              <i :class="`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`"></i>
-            </b-input-group-text>
-          </b-input-group-append>
-        </b-input-group>
+        <BasePasswordInput v-model="user.confirmPassword"/>
       </b-form-group>
-
 
       <!-- Submit -->
       <div class="d-flex justify-content-end">
@@ -92,21 +69,34 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
+import BasePasswordInput from "@/components/BasePasswordInput"
 
 export default {
   name: "RegisterModal",
+  components: {
+    BasePasswordInput
+  },
   data() {
     return {
       showPassword: false,
       user: {
+        name: "",
+        role: "",
         email: "",
         password: "",
+        confirmPassword: "",
       },
     };
   },
+  computed: {
+    ...mapState(["userRoles"])
+  },
+  mounted() {
+    this.fetchUserRoles()
+  },
   methods: {
-    ...mapActions(["register"]),
+    ...mapActions(["register", "fetchUserRoles"]),
 
     // Login and hide modal
     handleSubmit() {

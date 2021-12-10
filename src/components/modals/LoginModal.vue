@@ -18,24 +18,13 @@
         :label="$t('logIn.form.passwordLabel')"
         class="mb-3"
       >
-        <b-input-group>
-          <b-form-input
-            v-model="user.password"
-            :type="showPassword ? 'text' : 'password'"
-          ></b-form-input>
-          <b-input-group-append>
-            <b-input-group-text
-              class="bg-transparent"
-              @click="showPassword = !showPassword"
-            >
-              <i :class="`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`"></i>
-            </b-input-group-text>
-          </b-input-group-append>
-        </b-input-group>
+        <BasePasswordInput v-model="user.password"/>
       </b-form-group>
 
+      <!-- Remember -->
       <b-form-checkbox v-model="rememberUser">{{ $t('logIn.form.rememberMe') }}</b-form-checkbox>
 
+      <!-- Submit -->
       <div class="d-flex justify-content-end">
         <b-button
           type="submit"
@@ -59,12 +48,15 @@
 
 <script>
 import { mapActions } from "vuex";
+import BasePasswordInput from "@/components/BasePasswordInput"
 
 export default {
   name: "LoginModal",
+  components: {
+    BasePasswordInput,
+  },
   data() {
     return {
-      showPassword: false,
       rememberUser: false,
       user: {
         email: "",
