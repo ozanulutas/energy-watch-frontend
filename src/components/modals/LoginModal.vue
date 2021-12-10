@@ -59,14 +59,14 @@
 import { mapActions } from "vuex";
 import BasePasswordInput from "@/components/BasePasswordInput";
 import validateState from "@/mixins/validation/validate-state";
-import { required } from "vuelidate/lib/validators";
+import loginFormValidation from "@/mixins/validation/login-form";
 
 export default {
   name: "LoginModal",
   components: {
     BasePasswordInput,
   },
-  mixins: [validateState],
+  mixins: [validateState, loginFormValidation],
   data() {
     return {
       rememberUser: false,
@@ -75,16 +75,6 @@ export default {
         password: "",
       },
     };
-  },
-  validations: {
-    user: {
-      email: {
-        required,
-      },
-      password: {
-        required,
-      },
-    },
   },
   methods: {
     ...mapActions(["login"]),
