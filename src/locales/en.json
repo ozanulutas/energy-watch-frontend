@@ -5,6 +5,11 @@
     "logIn": "Log In",
     "register": "Register"
   },
+  "formError": {
+    "introThis": "This field",
+    "introPlease": "Please enter",
+    "required": " is required"
+  },
   "navbar": {
     "link": {
       "home": "Home",
@@ -46,6 +51,5 @@
       "passwordLabel": "Password",
       "confirmPasswordLabel": "Confirm Password"
     }
-    
   }
 }

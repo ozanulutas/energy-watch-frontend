@@ -14,7 +14,7 @@
       </b-input-group-text>
     </b-input-group-append>
     <b-form-invalid-feedback>
-      This field is required
+      {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
     </b-form-invalid-feedback>
   </b-input-group>
 </template>

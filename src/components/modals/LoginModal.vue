@@ -16,7 +16,7 @@
           :state="validateState('user.email')"
         ></b-form-input>
         <b-form-invalid-feedback>
-          This field is required
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
         </b-form-invalid-feedback>
       </b-form-group>
       <!-- Password -->
