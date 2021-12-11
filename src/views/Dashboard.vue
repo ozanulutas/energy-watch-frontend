@@ -1,6 +1,16 @@
 <template>
   <div>
-    <h1>Dashboard</h1>
+    <h1>{{ $t("common.facility") }}</h1>
+
+    <div class="d-flex justify-content-end mb-2">
+      <b-button
+        variant="outline-primary"
+        v-b-modal.facility-modal-form
+      >
+        <i class="fas fa-plus"></i>
+        {{ $t("facility.addBtn") }}
+      </b-button>
+    </div>
     <b-table
       ref="table"
       hover
@@ -14,6 +24,7 @@
           class="mr-2"
           variant="outline-info"
           v-b-modal.facility-modal-form
+          @click="setEditFormData(row.item)"
         >
           <i class="fas fa-pencil-alt"></i>
         </b-button>
@@ -27,22 +38,25 @@
       </template>
     </b-table>
 
-    <FacilityModalForm />
+    <FacilityModalForm 
+      :data.sync="editFormData"
+    />
   </div>
 </template>
 
 <script>
 import { mapActions, mapState, mapGetters } from "vuex";
-import FacilityModalForm from "@/components/modals/FacilityModalForm"
+import FacilityModalForm from "@/components/modals/FacilityModalForm";
 
 export default {
   name: "Dashboard",
   components: {
-    FacilityModalForm
+    FacilityModalForm,
   },
   data() {
     return {
       isBusy: false,
+      editFormData: {},
     };
   },
   computed: {
@@ -66,13 +80,15 @@ export default {
           key: "membership_start_date",
           label: this.$t("facility.tbl.startDateCol"),
           sortable: true,
-          formatter: val => val ? new Date(val).toLocaleDateString("tr") : "-"
+          formatter: (val) =>
+            val ? new Date(val).toLocaleDateString("tr") : "-",
         },
         {
           key: "membership_end_date",
           label: this.$t("facility.tbl.endDateCol"),
           sortable: true,
-          formatter: val => val ? new Date(val).toLocaleDateString("tr") : "-"
+          formatter: (val) =>
+            val ? new Date(val).toLocaleDateString("tr") : "-",
         },
         ...this.getCustomCols,
         { key: "actions", label: this.$t("facility.tbl.actionsCol") },
@@ -84,7 +100,14 @@ export default {
     this.fetchFacilities();
   },
   methods: {
-    ...mapActions("facility", ["fetchFacilities", "fetchCustomCols", "deleteFacility"]),
+    ...mapActions("facility", [
+      "fetchFacilities",
+      "fetchCustomCols",
+      "deleteFacility",
+    ]),
+    setEditFormData(facility) {
+      this.editFormData = facility
+    }
   },
 };
 </script>

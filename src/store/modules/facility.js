@@ -52,7 +52,11 @@ export default {
         })
     },
     // Create a facility record
-    createFacility({ dispatch }, payload) {
+    createFacility({ dispatch/*, rootGetters*/ }, payload) {
+      // // Get user id and attach it to the payload
+      // const { id: userId } = rootGetters['user/getUser']
+      // payload.user_id = userId
+      
       return axios.post(`/facilities`, {
         ...payload
       })
@@ -74,10 +78,8 @@ export default {
     },
     // Update a facility record
     updateFacility({ dispatch }, payload) {
-      return axios.update(`/facilities/${payload}`, {
-        data: {
-          payload
-        }
+      return axios.put(`/facilities/${payload.id}`, {
+        ...payload
       })
         .then(resp => {
           dispatch("fetchFacilities")
@@ -113,10 +115,10 @@ export default {
   getters: {
     getCustomCols: state => {
       return state.customCols.map((col) => ({
-        key: col.name.slice(1),
+        key: col.name,
         label: col.alias,  
         sortable: true 
       }))
-    }
+    },
   }
 }

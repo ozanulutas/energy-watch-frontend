@@ -2,7 +2,7 @@
   <b-modal
     id="facility-modal-form"
     v-model="visible"
-    :title="$t('facility.createForm.title')"
+    :title="isEdit ? $t('facility.editForm.title') : $t('facility.createForm.title')"
     hide-footer
   >
     <b-form @submit.prevent="handleSubmit">
@@ -52,7 +52,7 @@
       <b-form-group
         v-for="col, i in customCols"
         :key="i"
-        :label="col.alias"
+        :label="col.type !== 'boolean' ? col.alias : ''"
         class="mb-3"
       >
         <b-form-input
@@ -99,10 +99,13 @@
 import { mapActions, mapState } from "vuex";
 
 export default {
-  name: "WarningModal",
+  name: "FacilityModalForm",
+  props: {
+    data: Object
+  },
   data() {
     return {
-      visible: false,
+      visible: false, // Modals visibility state
       facility: {
         name: "",
         employees: null,
@@ -116,6 +119,10 @@ export default {
   computed: {
     ...mapState("facility", ["customCols"]),
 
+    // Determines if form is opened for edit record
+    isEdit() {
+      return Object.prototype.hasOwnProperty.call(this.data, "id")
+    },
     membershipTypes() {
       return [
         { value: true, text: this.$t("facility.membershipTypes.special") },
@@ -123,12 +130,25 @@ export default {
       ];
     },
   },
+  watch: {
+    isEdit(isEdit) {
+      if(isEdit) {
+        this.facility = this.data
+      }
+    }
+  },
+  mounted() {
+    // Clear edit form data on modal close
+    this.$root.$on('bv::modal::hide', () => {
+      this.$emit("update:data", {})
+      this.facility = {}
+    })
+  },
   methods: {
     ...mapActions("facility", ["updateFacility", "createFacility"]),
 
     handleSubmit() {
-      console.log("submited");
-      this.createFacility(this.facility);
+      this.isEdit ? this.updateFacility(this.facility) : this.createFacility(this.facility)
     },
   },
 };

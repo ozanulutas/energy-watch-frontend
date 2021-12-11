@@ -6,7 +6,8 @@
     "register": "Register",
     "welcome": "Welcome",
     "actions": "Actions",
-    "save": "Save"
+    "save": "Save",
+    "facility": "Facility"
   },
   "formError": {
     "introThis": "This field",
@@ -57,6 +58,7 @@
     }
   },
   "facility": {
+    "addBtn": "Add New @:common.facility",
     "tbl": {
       "nameCol": "Name",
       "employeesCol": "Employees",
@@ -66,8 +68,11 @@
       "actionsCol": "@:common.actions"
     },
     "createForm": {
-      "title": "New Facility",
+      "title": "New @:common.facility",
       "submitBtn": "@:common.save"
+    },
+    "editForm": {
+      "title": "Edit @:common.facility"
     },
     "membershipTypes": {
       "normal": "Normal Member",

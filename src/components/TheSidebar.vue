@@ -4,6 +4,8 @@
     sidebar-class="dashboard-layout__sidebar"
     title="Sidebar"
     :visible="visible"
+    bg-variant="dark"
+    text-variant="light"
     shadow
     no-header-close
     @change="($e) => $emit('change', $e)"
