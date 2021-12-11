@@ -79,8 +79,8 @@ export default {
   },
   getters: {
     getUser: state => {
-      console.log("getUser", state);
-      return JSON.parse(localStorage.getItem("user")) || state.user;
+      const user = state.user // Call state to trigger
+      return JSON.parse(localStorage.getItem("user")) || user
     }
   }
 }
