@@ -11,10 +11,11 @@
       <template #cell(actions)="row">
         <b-button
           size="sm"
-          class="mr-1"
-          variant="outline-primary"
+          class="mr-2"
+          variant="outline-info"
+          v-b-modal.facility-modal-form
         >
-          <i class="fas fa-pencil-alt"></i> {{row}}
+          <i class="fas fa-pencil-alt"></i>
         </b-button>
         <b-button
           size="sm"
@@ -25,14 +26,20 @@
         </b-button>
       </template>
     </b-table>
+
+    <FacilityModalForm />
   </div>
 </template>
 
 <script>
 import { mapActions, mapState, mapGetters } from "vuex";
+import FacilityModalForm from "@/components/modals/FacilityModalForm"
 
 export default {
   name: "Dashboard",
+  components: {
+    FacilityModalForm
+  },
   data() {
     return {
       isBusy: false,
@@ -59,11 +66,13 @@ export default {
           key: "membership_start_date",
           label: this.$t("facility.tbl.startDateCol"),
           sortable: true,
+          formatter: val => val ? new Date(val).toLocaleDateString("tr") : "-"
         },
         {
           key: "membership_end_date",
           label: this.$t("facility.tbl.endDateCol"),
           sortable: true,
+          formatter: val => val ? new Date(val).toLocaleDateString("tr") : "-"
         },
         ...this.getCustomCols,
         { key: "actions", label: this.$t("facility.tbl.actionsCol") },

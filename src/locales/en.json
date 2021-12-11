@@ -5,7 +5,8 @@
     "logIn": "Log In",
     "register": "Register",
     "welcome": "Welcome",
-    "actions": "Actions"
+    "actions": "Actions",
+    "save": "Save"
   },
   "formError": {
     "introThis": "This field",
@@ -58,12 +59,19 @@
   "facility": {
     "tbl": {
       "nameCol": "Name",
-      "locationCol": "Location",
       "employeesCol": "Employees",
       "isSpecialCol": "Membership Type",
       "startDateCol": "Membership Start Date",
       "endDateCol": "Membership End Date",
       "actionsCol": "@:common.actions"
+    },
+    "createForm": {
+      "title": "New Facility",
+      "submitBtn": "@:common.save"
+    },
+    "membershipTypes": {
+      "normal": "Normal Member",
+      "special": "Special Member"
     }
   }
 }

@@ -32,9 +32,53 @@ export default {
           })
         })
     },
-    // Fetches facility records
+    // Delete a facility record
     deleteFacility({ dispatch }, payload) {
       return axios.delete(`/facilities/${payload}`)
+        .then(resp => {
+          dispatch("fetchFacilities")
+          // Show success toast
+          this.$app.$bvToast.toast(resp.data.message, {
+            title: "Error",
+            toaster: "b-toaster-bottom-center",
+          })
+        })
+        .catch(err => {
+          // Show error toast
+          this.$app.$bvToast.toast(err.response.data.message, {
+            title: "Error",
+            toaster: "b-toaster-bottom-center",
+          })
+        })
+    },
+    // Create a facility record
+    createFacility({ dispatch }, payload) {
+      return axios.post(`/facilities`, {
+        ...payload
+      })
+        .then(resp => {
+          dispatch("fetchFacilities")
+          // Show success toast
+          this.$app.$bvToast.toast(resp.data.message, {
+            title: "Error",
+            toaster: "b-toaster-bottom-center",
+          })
+        })
+        .catch(err => {
+          // Show error toast
+          this.$app.$bvToast.toast(err.response.data.message, {
+            title: "Error",
+            toaster: "b-toaster-bottom-center",
+          })
+        })
+    },
+    // Update a facility record
+    updateFacility({ dispatch }, payload) {
+      return axios.update(`/facilities/${payload}`, {
+        data: {
+          payload
+        }
+      })
         .then(resp => {
           dispatch("fetchFacilities")
           // Show success toast
