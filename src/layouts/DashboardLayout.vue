@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: "AdminLayout",
+  name: "DashboardLayout",
 }
 </script>

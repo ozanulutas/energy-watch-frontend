@@ -12,6 +12,7 @@
     "required": " is required"
   },
   "navbar": {
+    "welcomeUser": "@:common.welcome {user}",
     "link": {
       "home": "Home",
       "dashboard": "Dashboard",

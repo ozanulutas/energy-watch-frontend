@@ -1,4 +1,4 @@
-import AdminLayout from '../layouts/AdminLayout.vue'
+import DashboardLayout from '../layouts/DashboardLayout.vue'
 import PublicLayout from '../layouts/PublicLayout.vue'
 
 export default [
@@ -15,7 +15,7 @@ export default [
   },
   {
     path: "",
-    component: AdminLayout,
+    component: DashboardLayout,
     meta: { middleware: "require-auth" },
     children: [
       {
