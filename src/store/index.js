@@ -80,9 +80,9 @@ export default new Vuex.Store({
     },
     // Logs user out
     logout({ commit }) {
-      commit("SET_USER", {})
       localStorage.removeItem("user")
       localStorage.removeItem("rememberUser")
+      commit("SET_USER", {})
     },
 
     // Fetches usser role records
@@ -117,7 +117,9 @@ export default new Vuex.Store({
   },
   getters: {
     getUser: state => {
-      return state.user || JSON.parse(localStorage.getItem("user"));
+      console.log("getUser", state.user);
+      // return state.user || JSON.parse(localStorage.getItem("user"));
+      return JSON.parse(localStorage.getItem("user")) || state.user;
     }
   }
 
