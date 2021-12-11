@@ -79,6 +79,7 @@ export default {
   },
   getters: {
     getUser: state => {
+      console.log("getUser", state);
       return JSON.parse(localStorage.getItem("user")) || state.user;
     }
   }
