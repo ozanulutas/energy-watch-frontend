@@ -95,13 +95,14 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userRoles"]),
+    ...mapState("userRole", ["userRoles"]),
   },
   mounted() {
     this.fetchUserRoles();
   },
   methods: {
-    ...mapActions(["register", "fetchUserRoles"]),
+    ...mapActions("userRole", ["fetchUserRoles"]),
+    ...mapActions("user", ["register"]),
 
     // Register and hide modal
     handleSubmit() {

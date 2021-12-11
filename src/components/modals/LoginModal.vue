@@ -77,7 +77,7 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["login"]),
+    ...mapActions("user", ["login"]),
 
     // Login and hide modal
     handleSubmit() {

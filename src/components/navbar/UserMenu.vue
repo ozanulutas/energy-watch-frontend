@@ -25,10 +25,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ user: "getUser" }),
+    ...mapGetters("user", { user: "getUser" }),
   },
   methods: {
-    ...mapActions(["logout"]),
+    ...mapActions("user", ["logout"]),
   },
 };
 </script>

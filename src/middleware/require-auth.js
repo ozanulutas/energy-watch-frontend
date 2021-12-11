@@ -1,7 +1,6 @@
 // if route requires authentication and user is not authenticated, prevent access
 export default function(to, next, router, store) {
-
-  const user = store.getters.getUser
+  const user = store.getters["user/getUser"]
   if (!(user && user.id)) {
 
     store.$app.$bvToast.toast("Unauthorized access!", {

@@ -13,7 +13,7 @@ export default {
     this.fetchFacilities()
   },
   methods: {
-    ...mapActions(["fetchFacilities"])
+    ...mapActions("facility", ["fetchFacilities"])
   }
 }
 </script>
