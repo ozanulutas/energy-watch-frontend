@@ -3,7 +3,6 @@
     ref="register-modal"
     id="register-modal"
     :title="$t('register.modal.title')"
-    lazy
     hide-footer
   >
     <b-form @submit.prevent="handleSubmit">
@@ -104,7 +103,7 @@ export default {
   methods: {
     ...mapActions(["register", "fetchUserRoles"]),
 
-    // Login and hide modal
+    // Register and hide modal
     handleSubmit() {
       this.register(this.user)
         .then((resp) => {

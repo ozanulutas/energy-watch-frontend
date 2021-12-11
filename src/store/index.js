@@ -3,12 +3,10 @@ import Vuex from 'vuex'
 import axios from "@/plugins/axios"
 
 Vue.use(Vuex)
-console.log();
+
 
 export default new Vuex.Store({
   state: {
-    // Authentication state
-    isLoggedIn: true,
     // User info
     user: {},
     // User roles
@@ -80,6 +78,12 @@ export default new Vuex.Store({
           })
         })
     },
+    // Logs user out
+    logout({ commit }) {
+      commit("SET_USER", {})
+      localStorage.removeItem("user")
+      localStorage.removeItem("rememberUser")
+    },
 
     // Fetches usser role records
     fetchUserRoles({ commit }) {
@@ -111,5 +115,10 @@ export default new Vuex.Store({
         })
     },
   },
+  getters: {
+    getUser: state => {
+      return state.user || JSON.parse(localStorage.getItem("user"));
+    }
+  }
 
 })

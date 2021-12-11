@@ -7,17 +7,17 @@
 </template>
 
 <script>
-import TheNavbar from "@/components/TheNavbar"
+import TheNavbar from "@/components/navbar/TheNavbar"
 
 export default {
   name: "App",
   components: {
     TheNavbar,
   },
-  beforeDestroy() {
-    if(!localStorage.getItem("rememberUser")) {
-      localStorage.removeItem("user")
-    }
-  }
+  // beforeDestroy() {
+  //   if(!localStorage.getItem("rememberUser")) {
+  //     localStorage.removeItem("user")
+  //   }
+  // }
 }
 </script>

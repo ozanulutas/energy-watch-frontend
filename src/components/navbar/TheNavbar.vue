@@ -23,17 +23,9 @@
 
         <b-navbar-nav class="ml-auto">
 
-          <TheLocaleChanger />
+          <LocaleChanger />
 
-          <b-nav-item-dropdown right>
-            <template #button-content>
-              {{ $t('navbar.dropdown.user') }}
-            </template>
-            <b-dropdown-item to="#">{{ $t('navbar.link.profile') }}</b-dropdown-item>
-            <b-dropdown-item v-b-modal.login-modal>{{ $t('navbar.link.logIn') }}</b-dropdown-item>
-            <b-dropdown-item v-b-modal.register-modal>{{ $t('navbar.link.register') }}</b-dropdown-item>
-            <b-dropdown-item to="#">{{ $t('navbar.link.logOut') }}</b-dropdown-item>
-          </b-nav-item-dropdown>
+          <UserMenu />
         </b-navbar-nav>
       </b-collapse>
     </b-container>
@@ -41,12 +33,14 @@
 </template>
 
 <script>
-import TheLocaleChanger from "@/components/TheLocaleChanger";
+import LocaleChanger from "@/components/navbar/LocaleChanger";
+import UserMenu from "@/components/navbar/UserMenu";
 
 export default {
   name: "Navbar",
   components: {
-    TheLocaleChanger,
+    LocaleChanger,
+    UserMenu,
   },
 };
 </script>

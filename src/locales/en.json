@@ -3,7 +3,8 @@
     "yes": "Yes",
     "no": "No",
     "logIn": "Log In",
-    "register": "Register"
+    "register": "Register",
+    "welcome": "Welcome"
   },
   "formError": {
     "introThis": "This field",

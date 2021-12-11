@@ -1,18 +1,13 @@
 // if route requires authentication and user is not authenticated, prevent access
-// returns error name for logging
 export default function(to, next, router, store) {
 
-  if (!store.state.isLoggedIn) {
-    console.log("geçemen");
-    // store.dispatch("smackbar", {
-    //   show: true,
-    //   text: "Unauthorized access!",
-    //   btn: {
-    //     close: {
-    //       color: "pink"
-    //     }
-    //   }
-    // });
+  const user = store.getters.getUser
+  if (!(user && user.id)) {
+
+    store.$app.$bvToast.toast("Unauthorized access!", {
+      title: "You need to login to open dashboard.",
+      toaster: "b-toaster-bottom-center",
+    })
 
     // // if user is logging out from admin page, redirect to home page
     // if(to.fullPath === "/admin") {
