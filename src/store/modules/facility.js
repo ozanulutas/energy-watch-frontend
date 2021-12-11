@@ -17,7 +17,7 @@ export default {
     fetchFacilities({ commit }) {
       return axios.get("/facilities")
         .then(resp => {
-          commit("SET_FACILITIES", resp.data)
+          commit("SET_FACILITIES", resp.data.results)
         })
         .catch(err => {
           // Show error toast
