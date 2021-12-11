@@ -83,6 +83,11 @@ export default new Vuex.Store({
       localStorage.removeItem("user")
       localStorage.removeItem("rememberUser")
       commit("SET_USER", {})
+
+      this.$app.$bvToast.toast("See you soon", {
+        title: "Successfully Logged Out",
+        toaster: "b-toaster-bottom-center",
+      })
     },
 
     // Fetches usser role records
