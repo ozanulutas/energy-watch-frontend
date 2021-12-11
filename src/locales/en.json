@@ -4,7 +4,8 @@
     "no": "No",
     "logIn": "Log In",
     "register": "Register",
-    "welcome": "Welcome"
+    "welcome": "Welcome",
+    "actions": "Actions"
   },
   "formError": {
     "introThis": "This field",
@@ -52,6 +53,17 @@
       "roleLabel": "Role",
       "passwordLabel": "Password",
       "confirmPasswordLabel": "Confirm Password"
+    }
+  },
+  "facility": {
+    "tbl": {
+      "nameCol": "Name",
+      "locationCol": "Location",
+      "employeesCol": "Employees",
+      "isSpecialCol": "Membership Type",
+      "startDateCol": "Membership Start Date",
+      "endDateCol": "Membership End Date",
+      "actionsCol": "@:common.actions"
     }
   }
 }
