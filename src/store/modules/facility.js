@@ -111,6 +111,20 @@ export default {
           })
         })
     },
+    // Removes user specificied facility column
+    deleteCustomCol({ commit }, payload) {
+      return axios.delete(`/custom-cols/${payload}/1`)
+        .then(resp => {
+          commit("SET_CUSTOM_COLS", resp.data.results)
+        })
+        .catch(err => {
+          // Show error toast
+          this.$app.$bvToast.toast(err.response.data.message, {
+            title: "Error",
+            toaster: "b-toaster-bottom-center",
+          })
+        })
+    },
   },
   getters: {
     getCustomCols: state => {

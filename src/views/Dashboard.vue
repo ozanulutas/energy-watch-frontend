@@ -11,13 +11,42 @@
         {{ $t("facility.addBtn") }}
       </b-button>
     </div>
+
     <b-table
       ref="table"
       hover
-      :busy.sync="isBusy"
       :items="facilities"
       :fields="fields"
     >
+      <!-- Custom columns -->
+      <template
+        v-for="customCol, i in customCols"
+        v-slot:[dynmaicHead(customCol)]="row"
+      >
+        <span
+          :key="`popover-trigger-${i}`"
+          :id="`popover-target-${row.label}`"
+          class="text-info"
+        >{{ row.label }}</span>
+        <b-popover
+          :key="`popover-${i}`"
+          :target="`popover-target-${row.label}`"
+          triggers="hover"
+          placement="top"
+        >
+          <!-- <template #title>Popover Title</template> -->
+          <b-button
+            size="sm"
+            variant="outline-danger"
+            @click="deleteCustomCol(row.column)"
+          >
+            <i class="fas fa-trash-alt"></i>
+          </b-button>
+        </b-popover>
+        <!-- </template> -->
+      </template>
+
+      <!-- Actions -->
       <template #cell(actions)="row">
         <b-button
           size="sm"
@@ -38,9 +67,7 @@
       </template>
     </b-table>
 
-    <FacilityModalForm 
-      :data.sync="editFormData"
-    />
+    <FacilityModalForm :data.sync="editFormData" />
   </div>
 </template>
 
@@ -55,14 +82,15 @@ export default {
   },
   data() {
     return {
-      isBusy: false,
+      // Form data to edit
       editFormData: {},
     };
   },
   computed: {
-    ...mapState("facility", ["facilities"]),
+    ...mapState("facility", ["facilities", "customCols"]),
     ...mapGetters("facility", ["getCustomCols"]),
 
+    // Table fields
     fields() {
       return [
         { key: "name", label: this.$t("facility.tbl.nameCol"), sortable: true },
@@ -102,12 +130,18 @@ export default {
   methods: {
     ...mapActions("facility", [
       "fetchFacilities",
-      "fetchCustomCols",
       "deleteFacility",
+      "fetchCustomCols",
+      "deleteCustomCol",
     ]),
+    // Sets the form data for edit action
     setEditFormData(facility) {
-      this.editFormData = facility
-    }
+      this.editFormData = facility;
+    },
+    // Allows dynamically created heads for b-table
+    dynmaicHead(key) {
+      return `head(${key.name})`; // simple string interpolation
+    },
   },
 };
 </script>
