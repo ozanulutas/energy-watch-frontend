@@ -7,7 +7,9 @@
     "welcome": "Welcome",
     "actions": "Actions",
     "save": "Save",
-    "facility": "Facility"
+    "cancel": "Cancel",
+    "facility": "Facility",
+    "addColBtn": "Create New Column"
   },
   "formError": {
     "introThis": "This field",
@@ -58,7 +60,8 @@
     }
   },
   "facility": {
-    "addBtn": "Add New @:common.facility",
+    "pageTitle": "Facility | Facilities",
+    "addRecordBtn": "Add New @:common.facility",
     "tbl": {
       "nameCol": "Name",
       "employeesCol": "Employees",
@@ -68,8 +71,7 @@
       "actionsCol": "@:common.actions"
     },
     "createForm": {
-      "title": "New @:common.facility",
-      "submitBtn": "@:common.save"
+      "title": "New @:common.facility"
     },
     "editForm": {
       "title": "Edit @:common.facility"
@@ -77,6 +79,14 @@
     "membershipTypes": {
       "normal": "Normal Member",
       "special": "Special Member"
+    }
+  },
+  "customCol": {
+    "createForm": {
+      "title": "New Column",
+      "name": "Name",
+      "alias": "Alias",
+      "type": "Type"
     }
   }
 }

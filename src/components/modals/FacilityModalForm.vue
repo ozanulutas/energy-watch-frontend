@@ -5,7 +5,7 @@
     :title="isEdit ? $t('facility.editForm.title') : $t('facility.createForm.title')"
     hide-footer
   >
-    <b-form @submit.prevent="handleSubmit">
+    <b-form @submit.prevent="handleSubmit()">
       <!-- Name -->
       <b-form-group
         :label="$t('facility.tbl.nameCol')"
@@ -80,13 +80,20 @@
       <hr>
 
       <!-- Submit -->
-      <div class="d-flex justify-content-end">
+      <div class="d-flex justify-content-between">
+        <b-button
+          variant="secondary"
+          @click="visible = false"
+        >
+          {{ $t('common.cancel') }}
+        </b-button>
+        <!-- Cancel -->
         <b-button
           type="submit"
           variant="primary"
         >
           <i class="fas fa-save"></i>
-          {{ $t('facility.createForm.submitBtn') }}
+          {{ $t('common.save') }}
         </b-button>
       </div>
 
@@ -101,11 +108,12 @@ import { mapActions, mapState } from "vuex";
 export default {
   name: "FacilityModalForm",
   props: {
-    data: Object
+    data: Object,
   },
   data() {
     return {
       visible: false, // Modals visibility state
+      // Form data
       facility: {
         name: "",
         employees: null,
@@ -121,7 +129,7 @@ export default {
 
     // Determines if form is opened for edit record
     isEdit() {
-      return Object.prototype.hasOwnProperty.call(this.data, "id")
+      return Object.prototype.hasOwnProperty.call(this.data, "id");
     },
     membershipTypes() {
       return [
@@ -132,23 +140,27 @@ export default {
   },
   watch: {
     isEdit(isEdit) {
-      if(isEdit) {
-        this.facility = this.data
+      if (isEdit) {
+        this.facility = this.data;
       }
-    }
+    },
   },
   mounted() {
     // Clear edit form data on modal close
-    this.$root.$on('bv::modal::hide', () => {
-      this.$emit("update:data", {})
-      this.facility = {}
-    })
+    this.$root.$on("bv::modal::hide", (bvEvent, modalId) => {
+      if (modalId === "facility-modal-form") {
+        this.$emit("update:data", {});
+        this.facility = {};
+      }
+    });
   },
   methods: {
     ...mapActions("facility", ["updateFacility", "createFacility"]),
 
     handleSubmit() {
-      this.isEdit ? this.updateFacility(this.facility) : this.createFacility(this.facility)
+      this.isEdit
+        ? this.updateFacility(this.facility)
+        : this.createFacility(this.facility);
     },
   },
 };

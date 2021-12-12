@@ -1,14 +1,25 @@
 <template>
   <div>
-    <h1>{{ $t("common.facility") }}</h1>
+    <h1><i class="fas fa-industry"></i> {{ $tc("facility.pageTitle", 2) }}</h1>
 
-    <div class="d-flex justify-content-end mb-2">
+    <div class="d-flex justify-content-between mb-2">
+      <!-- Add new record -->
       <b-button
         variant="outline-primary"
         v-b-modal.facility-modal-form
       >
         <i class="fas fa-plus"></i>
-        {{ $t("facility.addBtn") }}
+        {{ $tc("facility.addRecordBtn") }}
+      </b-button>
+
+      <!-- Addn new col -->
+      <b-button
+        variant="outline-primary"
+        v-b-modal.column-modal-form
+        @click="tblId = 1"
+      >
+        <i class="fas fa-columns"></i>
+        {{ $t("common.addColBtn") }}
       </b-button>
     </div>
 
@@ -38,6 +49,7 @@
           <b-button
             size="sm"
             variant="outline-danger"
+            v-b-tooltip.hover title="Delete Column"
             @click="deleteCustomCol(row.column)"
           >
             <i class="fas fa-trash-alt"></i>
@@ -68,22 +80,27 @@
     </b-table>
 
     <FacilityModalForm :data.sync="editFormData" />
+    <ColumnModalForm  :tbl-id.sync="tlbId"/>
   </div>
 </template>
 
 <script>
 import { mapActions, mapState, mapGetters } from "vuex";
 import FacilityModalForm from "@/components/modals/FacilityModalForm";
+import ColumnModalForm from "@/components/modals/ColumnModalForm";
 
 export default {
-  name: "Dashboard",
+  name: "Facilities",
   components: {
     FacilityModalForm,
+    ColumnModalForm,
   },
   data() {
     return {
       // Form data to edit
       editFormData: {},
+      // Table id to use in custom column creation
+      tlbId: 1,
     };
   },
   computed: {

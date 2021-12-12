@@ -19,9 +19,9 @@ export default [
     meta: { middleware: "require-auth" },
     children: [
       {
-        path: '/dashboard',
-        name: 'Dashboard',
-        component: () => import('../views/Dashboard.vue'),
+        path: '/facilities',
+        name: 'Facilities',
+        component: () => import('../views/Facilities.vue'),
       }
     ]
   },
