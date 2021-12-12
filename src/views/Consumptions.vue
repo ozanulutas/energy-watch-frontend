@@ -1,22 +1,22 @@
 <template>
   <div>
-    <h1><i class="fas fa-industry"></i> {{ $tc("facility.pageTitle", 2) }}</h1>
+    <h1><i class="fas fa-bolt"></i> {{ $tc("consumption.pageTitle", 2) }}</h1>
 
     <div class="d-flex justify-content-between mb-2">
       <!-- Add new record -->
       <b-button
         variant="outline-primary"
-        v-b-modal.facility-modal-form
+        v-b-modal.consumption-modal-form
       >
         <i class="fas fa-plus"></i>
-        {{ $tc("facility.addRecordBtn") }}
+        {{ $tc("consumption.addRecordBtn") }}
       </b-button>
 
-      <!-- Addn new col -->
+      <!-- Add new col -->
       <b-button
         variant="outline-primary"
         v-b-modal.column-modal-form
-        @click="tblId = 1"
+        @click="tblId = 2"
       >
         <i class="fas fa-columns"></i>
         {{ $t("common.addColBtn") }}
@@ -26,7 +26,7 @@
     <b-table
       ref="table"
       hover
-      :items="facilities"
+      :items="consumptions"
       :fields="fields"
     >
       <!-- Custom columns -->
@@ -49,7 +49,8 @@
           <b-button
             size="sm"
             variant="outline-danger"
-            v-b-tooltip.hover title="Delete Column"
+            v-b-tooltip.hover
+            title="Delete Column"
             @click="deleteCustomCol(row.column)"
           >
             <i class="fas fa-trash-alt"></i>
@@ -64,7 +65,7 @@
           size="sm"
           class="mr-2"
           variant="outline-info"
-          v-b-modal.facility-modal-form
+          v-b-modal.consumption-modal-form
           @click="setEditFormData(row.item)"
         >
           <i class="fas fa-pencil-alt"></i>
@@ -72,27 +73,27 @@
         <b-button
           size="sm"
           variant="outline-danger"
-          @click="deleteFacility(row.item.id)"
+          @click="deleteConsumption(row.item.id)"
         >
           <i class="fas fa-trash-alt"></i>
         </b-button>
       </template>
     </b-table>
 
-    <FacilityModalForm :data.sync="editFormData" />
-    <ColumnModalForm  :tbl-id.sync="tlbId"/>
+    <ConsumptionModalForm :data.sync="editFormData" />
+    <ColumnModalForm :tbl-id.sync="tblId" />
   </div>
 </template>
 
 <script>
 import { mapActions, mapState, mapGetters } from "vuex";
-import FacilityModalForm from "@/components/modals/FacilityModalForm";
+import ConsumptionModalForm from "@/components/modals/ConsumptionModalForm";
 import ColumnModalForm from "@/components/modals/ColumnModalForm";
 
 export default {
-  name: "Facilities",
+  name: "Consumptions",
   components: {
-    FacilityModalForm,
+    ConsumptionModalForm,
     ColumnModalForm,
   },
   data() {
@@ -100,55 +101,74 @@ export default {
       // Form data to edit
       editFormData: {},
       // Table id to use in custom column creation
-      tlbId: 1,
+      tblId: 2,
     };
   },
   computed: {
-    ...mapState("facility", ["facilities", "customCols"]),
-    ...mapGetters("facility", ["getCustomCols"]),
+    ...mapState("consumption", ["consumptions", "customCols"]),
+    ...mapGetters("consumption", ["getCustomCols"]),
 
     // Table fields
     fields() {
       return [
-        { key: "name", label: this.$t("facility.tbl.nameCol"), sortable: true },
         {
-          key: "employees",
-          label: this.$t("facility.tbl.employeesCol"),
+          key: "facility_name",
+          label: this.$t("consumption.tbl.facilityNameCol"),
           sortable: true,
         },
         {
-          key: "is_special",
-          label: this.$t("facility.tbl.isSpecialCol"),
+          key: "department",
+          label: this.$t("consumption.tbl.departmentCol"),
           sortable: true,
         },
         {
-          key: "membership_start_date",
-          label: this.$t("facility.tbl.startDateCol"),
+          key: "consumption",
+          label: this.$t("consumption.tbl.consumptionCol"),
+          sortable: true,
+        },
+        {
+          key: "fee",
+          label: this.$t("consumption.tbl.feeCol"),
+          sortable: true,
+        },
+        {
+          key: "discounted_price",
+          label: this.$t("consumption.tbl.discountedPriceCol"),
+          sortable: true,
+        },
+        {
+          key: "date_range",
+          label: this.$t("consumption.tbl.dateRangeCol"),
+          sortable: true,
+        },
+        {
+          key: "start_date",
+          label: this.$t("consumption.tbl.startDateCol"),
           sortable: true,
           formatter: (val) =>
             val ? new Date(val).toLocaleDateString("tr") : "-",
         },
         {
-          key: "membership_end_date",
-          label: this.$t("facility.tbl.endDateCol"),
+          key: "end_date",
+          label: this.$t("consumption.tbl.endDateCol"),
           sortable: true,
           formatter: (val) =>
             val ? new Date(val).toLocaleDateString("tr") : "-",
         },
         ...this.getCustomCols,
-        { key: "actions", label: this.$t("facility.tbl.actionsCol") },
+        { key: "actions", label: this.$t("consumption.tbl.actionsCol") },
       ];
     },
   },
   mounted() {
     this.fetchCustomCols();
-    this.fetchFacilities();
+    this.fetchConsumptions();
   },
   methods: {
-    ...mapActions("facility", [
-      "fetchFacilities",
-      "deleteFacility",
+    // ...mapActions("facility", []),
+    ...mapActions("consumption", [
       "fetchCustomCols",
+      "fetchConsumptions",
       "deleteCustomCol",
     ]),
     // Sets the form data for edit action

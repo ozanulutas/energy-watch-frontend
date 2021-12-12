@@ -80,7 +80,7 @@
     </b-table>
 
     <FacilityModalForm :data.sync="editFormData" />
-    <ColumnModalForm  :tbl-id.sync="tlbId"/>
+    <ColumnModalForm  :tbl-id.sync="tblId"/>
   </div>
 </template>
 
@@ -100,7 +100,7 @@ export default {
       // Form data to edit
       editFormData: {},
       // Table id to use in custom column creation
-      tlbId: 1,
+      tblId: 1,
     };
   },
   computed: {

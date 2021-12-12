@@ -2,7 +2,7 @@ import axios from "@/plugins/axios"
 
 export default {
   namespaced: true,
-  
+
   state: () => ({
     colTypes: []
   }),
@@ -12,8 +12,8 @@ export default {
     },
   },
   actions: {
-     // Fetches column types
-     fetchColTypes({ commit }) {
+    // Fetches column types
+    fetchColTypes({ commit }) {
       return axios.get("/custom-cols/types")
         .then(resp => {
           commit("SET_COL_TYPES", resp.data.results)
@@ -26,14 +26,18 @@ export default {
           })
         })
     },
-    // Create a custom column record and fetches the facilities
+    // Create a custom column record and fetches the associated table
     createCol({ dispatch }, payload) {
-      
+
       return axios.post(`/custom-cols`, {
         ...payload
       })
         .then(resp => {
-          dispatch('facilities/fetchFacilities', null, { root: true })
+          if(payload.tbl_id == 1) {
+            dispatch('facility/fetchCustomCols', null, { root: true })
+          } else if(payload.tbl_id == 2) {
+            dispatch('consumption/fetchCustomCols', null, { root: true })
+          }
           // Show success toast
           this.$app.$bvToast.toast(resp.data.message, {
             title: "Error",

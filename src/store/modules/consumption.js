@@ -5,24 +5,24 @@ export default {
 
   state: () => ({
     // Facility records
-    facilities: [],
+    consumptions: [],
     // User specificied custom columns
     customCols: []
   }),
   mutations: {
-    SET_FACILITIES(state, payload) {
-      state.facilities = payload
+    SET_CONSUMPTIONS(state, payload) {
+      state.consumptions = payload
     },
     SET_CUSTOM_COLS(state, payload) {
       state.customCols = payload
     },
   },
   actions: {
-    // Fetches facility records
-    fetchFacilities({ commit }) {
-      return axios.get("/facilities")
+    // Fetches consumptions records
+    fetchConsumptions({ commit }) {
+      return axios.get("/consumptions")
         .then(resp => {
-          commit("SET_FACILITIES", resp.data.results)
+          commit("SET_CONSUMPTIONS", resp.data.results)
         })
         .catch(err => {
           // Show error toast
@@ -32,36 +32,14 @@ export default {
           })
         })
     },
-    // Delete a facility record
-    deleteFacility({ dispatch }, payload) {
-      return axios.delete(`/facilities/${payload}`)
-        .then(resp => {
-          dispatch("fetchFacilities")
-          // Show success toast
-          this.$app.$bvToast.toast(resp.data.message, {
-            title: "Success",
-            toaster: "b-toaster-bottom-center",
-          })
-        })
-        .catch(err => {
-          // Show error toast
-          this.$app.$bvToast.toast(err.response.data.message, {
-            title: "Error",
-            toaster: "b-toaster-bottom-center",
-          })
-        })
-    },
-    // Create a facility record
-    createFacility({ dispatch/*, rootGetters*/ }, payload) {
-      // // Get user id and attach it to the payload
-      // const { id: userId } = rootGetters['user/getUser']
-      // payload.user_id = userId
-      
-      return axios.post(`/facilities`, {
+    // Creates a consumption record
+    createConsumption({ dispatch }, payload) {
+
+      return axios.post(`/facilities/${payload.facility_id}/consumptions`, {
         ...payload
       })
         .then(resp => {
-          dispatch("fetchFacilities")
+          dispatch("fetchConsumptions")
           // Show success toast
           this.$app.$bvToast.toast(resp.data.message, {
             title: "Success",
@@ -76,13 +54,14 @@ export default {
           })
         })
     },
-    // Update a facility record
-    updateFacility({ dispatch }, payload) {
-      return axios.put(`/facilities/${payload.id}`, {
+    // Updates a consumption record
+    updateConsumption({ dispatch }, payload) {
+      delete payload.facility_name
+      return axios.put(`/facilities/${payload.facility_id}/consumptions/${payload.id}`, {
         ...payload
       })
         .then(resp => {
-          dispatch("fetchFacilities")
+          dispatch("fetchConsumptions")
           // Show success toast
           this.$app.$bvToast.toast(resp.data.message, {
             title: "Success",
@@ -97,9 +76,10 @@ export default {
           })
         })
     },
-    // Fetches user specificied custom facility columns
+
+    // Fetches user specificied custom consumption columns
     fetchCustomCols({ commit }) {
-      return axios.get("/custom-cols/1")
+      return axios.get("/custom-cols/2")
         .then(resp => {
           commit("SET_CUSTOM_COLS", resp.data.results)
         })
@@ -111,9 +91,9 @@ export default {
           })
         })
     },
-    // Removes user specificied facility column
+    // Removes user specificied consumption column
     deleteCustomCol({ dispatch }, payload) {
-      return axios.delete(`/custom-cols/${payload}/table/1`)
+      return axios.delete(`/custom-cols/${payload}/table/2`)
         .then(resp => {
           dispatch("fetchCustomCols")
           // Show success toast
@@ -136,15 +116,8 @@ export default {
     getCustomCols: state => {
       return state.customCols.map((col) => ({
         key: col.name,
-        label: col.alias,  
-        sortable: true 
-      }))
-    },
-    // Prepares facility records to use in b-select
-    getFacilities: state => {
-      return state.facilities.map((facility) => ({
-        value: facility.id, 
-        text: facility.name
+        label: col.alias,
+        sortable: true
       }))
     },
   }

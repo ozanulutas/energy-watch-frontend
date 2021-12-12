@@ -86,7 +86,7 @@ export default {
     // Clear table id and form data on modal close
     this.$root.$on("bv::modal::hide", (bvEvent, modalId) => {
       if (modalId === "column-modal-form") {
-        this.$emit("update:tbl-id", null);
+        this.$emit("update:tbl-id", 0);
         this.col = {};
       }
     });

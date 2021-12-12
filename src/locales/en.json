@@ -9,6 +9,7 @@
     "save": "Save",
     "cancel": "Cancel",
     "facility": "Facility",
+    "consumption": "Consumption",
     "addColBtn": "Create New Column"
   },
   "formError": {
@@ -79,6 +80,27 @@
     "membershipTypes": {
       "normal": "Normal Member",
       "special": "Special Member"
+    }
+  },
+  "consumption": {
+    "pageTitle": "Consumption | Consumptions",
+    "addRecordBtn": "Add New @:common.consumption",
+    "tbl": {
+      "facilityNameCol": "@:common.facility Name",
+      "departmentCol": "Department",
+      "consumptionCol": "Consumption",
+      "feeCol": "Fee",
+      "discountedPriceCol": "Discounted Price",
+      "dateRangeCol": "Date Range",
+      "startDateCol": "Start Date",
+      "endDateCol": "End Date",
+      "actionsCol": "@:common.actions"
+    },
+    "createForm": {
+      "title": "New @:common.consumption"
+    },
+    "editForm": {
+      "title": "Edit @:common.consumption"
     }
   },
   "customCol": {
