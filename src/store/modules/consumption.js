@@ -1,4 +1,5 @@
 import axios from "@/plugins/axios"
+import { prepareDate } from "@/helpers/date-helpers"
 
 export default {
   namespaced: true,
@@ -34,6 +35,8 @@ export default {
     },
     // Creates a consumption record
     createConsumption({ dispatch }, payload) {
+      payload.start_date = prepareDate(payload.start_date)
+      payload.end_date = prepareDate(payload.end_date)
 
       return axios.post("/consumptions", {
         ...payload
@@ -56,7 +59,10 @@ export default {
     },
     // Updates a consumption record
     updateConsumption({ dispatch }, payload) {
+      payload.start_date = prepareDate(payload.start_date)
+      payload.end_date = prepareDate(payload.end_date)
       delete payload.facility_name
+      
       return axios.put(`/consumptions/${payload.id}`, {
         ...payload
       })
