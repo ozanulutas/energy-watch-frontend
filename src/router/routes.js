@@ -22,7 +22,12 @@ export default [
         path: '/facilities',
         name: 'Facilities',
         component: () => import('../views/Facilities.vue'),
-      }
+      },
+      {
+        path: '/consumptions',
+        name: 'Consumptions',
+        component: () => import('../views/Consumptions.vue'),
+      },
     ]
   },
 ]

@@ -8,19 +8,28 @@
     text-variant="light"
     shadow
     no-header-close
+    no-close-on-esc
+    no-close-on-route-change
     @change="($e) => $emit('change', $e)"
   >
-    <div class="px-3 py-2">
-      <p>
-        Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-        in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-      </p>
-      <b-img
-        src="https://picsum.photos/500/500/?image=54"
-        fluid
-        thumbnail
-      ></b-img>
-    </div>
+    <b-list-group
+      class="px-4"
+      flush
+    >
+
+      <b-list-group-item
+        to="/facilities"
+        class="bg-transparent text-light"
+      ><i class="fas fa-industry"></i> Facilities</b-list-group-item>
+      <b-list-group-item
+        to="/consumptions"
+        class="bg-transparent text-light"
+      ><i class="fas fa-bolt"></i> Consumptions</b-list-group-item>
+      <b-list-group-item
+        to="/user-settings"
+        class="bg-transparent text-light"
+      ><i class="fas fa-user-cog"></i> User Settings</b-list-group-item>
+    </b-list-group>
   </b-sidebar>
 </template>
 
@@ -28,7 +37,7 @@
 export default {
   name: "TheSidebar",
   props: {
-    visible: Boolean
+    visible: Boolean,
   },
 };
 </script>
