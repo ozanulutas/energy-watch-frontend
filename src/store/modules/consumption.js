@@ -35,7 +35,7 @@ export default {
     // Creates a consumption record
     createConsumption({ dispatch }, payload) {
 
-      return axios.post(`/facilities/${payload.facility_id}/consumptions`, {
+      return axios.post("/consumptions", {
         ...payload
       })
         .then(resp => {
@@ -57,7 +57,7 @@ export default {
     // Updates a consumption record
     updateConsumption({ dispatch }, payload) {
       delete payload.facility_name
-      return axios.put(`/facilities/${payload.facility_id}/consumptions/${payload.id}`, {
+      return axios.put(`/consumptions/${payload.id}`, {
         ...payload
       })
         .then(resp => {
@@ -76,7 +76,25 @@ export default {
           })
         })
     },
-
+    // Delete a consumption record
+    deleteConsumption({ dispatch }, payload) {
+      return axios.delete(`/consumptions/${payload}`)
+        .then(resp => {
+          dispatch("fetchConsumptions")
+          // Show success toast
+          this.$app.$bvToast.toast(resp.data.message, {
+            title: "Success",
+            toaster: "b-toaster-bottom-center",
+          })
+        })
+        .catch(err => {
+          // Show error toast
+          this.$app.$bvToast.toast(err.response.data.message, {
+            title: "Error",
+            toaster: "b-toaster-bottom-center",
+          })
+        })
+    },
     // Fetches user specificied custom consumption columns
     fetchCustomCols({ commit }) {
       return axios.get("/custom-cols/2")

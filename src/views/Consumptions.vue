@@ -45,7 +45,6 @@
           triggers="hover"
           placement="top"
         >
-          <!-- <template #title>Popover Title</template> -->
           <b-button
             size="sm"
             variant="outline-danger"
@@ -56,7 +55,6 @@
             <i class="fas fa-trash-alt"></i>
           </b-button>
         </b-popover>
-        <!-- </template> -->
       </template>
 
       <!-- Actions -->
@@ -165,9 +163,9 @@ export default {
     this.fetchConsumptions();
   },
   methods: {
-    // ...mapActions("facility", []),
     ...mapActions("consumption", [
       "fetchCustomCols",
+      "deleteConsumption",
       "fetchConsumptions",
       "deleteCustomCol",
     ]),

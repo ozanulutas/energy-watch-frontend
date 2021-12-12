@@ -21,9 +21,7 @@
         :label="$t('consumption.tbl.departmentCol')"
         class="mb-3"
       >
-        <b-form-input
-          v-model="consumption.department"
-        ></b-form-input>
+        <b-form-input v-model="consumption.department"></b-form-input>
       </b-form-group>
       <!-- Consumption -->
       <b-form-group
@@ -60,7 +58,10 @@
         :label="$t('consumption.tbl.startDateCol')"
         class="mb-3"
       >
-        <b-form-datepicker v-model="consumption.start_date"></b-form-datepicker>
+        <b-form-datepicker
+          v-model="consumption.start_date"
+          @input="($e) => consumption.start_date = new Date($e).toLocaleDateString('fr-CA')"
+        ></b-form-datepicker>
       </b-form-group>
       <!-- End Date -->
       <b-form-group
@@ -167,8 +168,7 @@ export default {
   },
   mounted() {
     // Fetch fatitlities to use in b-select
-    this.fetchFacilities()
-
+    this.fetchFacilities();
 
     // Clear edit form data on modal close
     this.$root.$on("bv::modal::hide", (bvEvent, modalId) => {
