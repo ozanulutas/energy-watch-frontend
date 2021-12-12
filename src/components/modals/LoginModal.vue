@@ -59,7 +59,7 @@
 import { mapActions } from "vuex";
 import BasePasswordInput from "@/components/BasePasswordInput";
 import validateState from "@/mixins/validation/validate-state";
-import loginFormValidation from "@/mixins/validation/login-form";
+import loginFormValidation from "@/mixins/validation/login";
 
 export default {
   name: "LoginModal",
