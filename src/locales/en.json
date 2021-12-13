@@ -10,12 +10,27 @@
     "cancel": "Cancel",
     "facility": "Facility",
     "consumption": "Consumption",
-    "addColBtn": "Create New Column"
+    "addColBtn": "Create New Column",
+    "and": "and",
+    "one": "one"
   },
   "formError": {
     "introThis": "This field",
     "introPlease": "Please enter",
-    "required": " is required"
+    "mustBe": "must be",
+    "mustContain": "must contain",
+    "atLeast": "at least",
+    "required": "is required",
+    "uppercase": "{n} upper case",
+    "lowercase": "{n} lower case",
+    "number": "{n} number",
+    "password": "must be a valid password",
+    "email": "must be a valid email",
+    "int": "must be a integer",
+    "num": "must be a number",
+    "minChar": "must be min {n} chars long",
+    "maxChar": "must be max {n} chars long",
+    "passwordNotMatch": "Passwords do not match"
   },
   "navbar": {
     "welcomeUser": "@:common.welcome {user}",

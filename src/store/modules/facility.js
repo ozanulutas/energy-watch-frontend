@@ -52,10 +52,7 @@ export default {
         })
     },
     // Create a facility record
-    createFacility({ dispatch/*, rootGetters*/ }, payload) {
-      // // Get user id and attach it to the payload
-      // const { id: userId } = rootGetters['user/getUser']
-      // payload.user_id = userId
+    createFacility({ dispatch }, payload) {
       
       return axios.post(`/facilities`, {
         ...payload
@@ -67,6 +64,8 @@ export default {
             title: "Success",
             toaster: "b-toaster-bottom-center",
           })
+
+          return resp
         })
         .catch(err => {
           // Show error toast
@@ -88,6 +87,8 @@ export default {
             title: "Success",
             toaster: "b-toaster-bottom-center",
           })
+
+          return resp
         })
         .catch(err => {
           // Show error toast

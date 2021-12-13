@@ -43,6 +43,8 @@ export default {
             title: "Error",
             toaster: "b-toaster-bottom-center",
           })
+
+          return resp
         })
         .catch(err => {
           // Show error toast

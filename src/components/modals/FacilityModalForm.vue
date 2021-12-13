@@ -1,5 +1,6 @@
 <template>
   <b-modal
+    ref="facility-modal-form"
     id="facility-modal-form"
     v-model="visible"
     :title="isEdit ? $t('facility.editForm.title') : $t('facility.createForm.title')"
@@ -11,7 +12,13 @@
         :label="$t('facility.tbl.nameCol')"
         class="mb-3"
       >
-        <b-form-input v-model="facility.name"></b-form-input>
+        <b-form-input
+          v-model="facility.name"
+          :state="validateState('facility.name')"
+        ></b-form-input>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <!-- Employees -->
       <b-form-group
@@ -21,7 +28,12 @@
         <b-form-input
           v-model="facility.employees"
           type="number"
+          :state="validateState('facility.employees')"
         ></b-form-input>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+          {{ `${ $t("common.and") } ${ $t("formError.int") }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <!-- Membership Type -->
       <b-form-group
@@ -31,21 +43,37 @@
         <b-form-select
           v-model="facility.is_special"
           :options="membershipTypes"
+          :state="validateState('facility.is_special')"
         ></b-form-select>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <!-- Start Date -->
       <b-form-group
         :label="$t('facility.tbl.startDateCol')"
         class="mb-3"
       >
-        <b-form-datepicker v-model="facility.membership_start_date"></b-form-datepicker>
+        <b-form-datepicker
+          v-model="facility.membership_start_date"
+          :state="validateState('facility.membership_start_date')"
+        ></b-form-datepicker>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <!-- End Date -->
       <b-form-group
         :label="$t('facility.tbl.endDateCol')"
         class="mb-3"
       >
-        <b-form-datepicker v-model="facility.membership_end_date"></b-form-datepicker>
+        <b-form-datepicker
+          v-model="facility.membership_end_date"
+          :state="validateState('facility.membership_end_date')"
+        ></b-form-datepicker>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
 
       <!-- Custom Cols -->
@@ -63,6 +91,12 @@
           v-if="col.type === 'integer'"
           v-model="facility[col.name]"
           type="number"
+        ></b-form-input>
+        <b-form-input
+          v-if="col.type === 'double'"
+          v-model="consumption[col.name]"
+          type="number"
+          step="0.0001"
         ></b-form-input>
         <b-form-datepicker
           v-else-if="col.type === 'date'"
@@ -104,12 +138,15 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import validateState from "@/mixins/validation/validate-state";
+import facilityFormValidation from "@/mixins/validation/facility";
 
 export default {
   name: "FacilityModalForm",
   props: {
     data: Object,
   },
+  mixins: [validateState, facilityFormValidation],
   data() {
     return {
       visible: false, // Modals visibility state
@@ -151,6 +188,7 @@ export default {
       if (modalId === "facility-modal-form") {
         this.$emit("update:data", {});
         this.facility = {};
+        this.$v.$reset();
       }
     });
   },
@@ -158,9 +196,20 @@ export default {
     ...mapActions("facility", ["updateFacility", "createFacility"]),
 
     handleSubmit() {
-      this.isEdit
+      this.$v.$touch();
+
+      if (this.$v.$error) {
+        return;
+      }
+
+      (this.isEdit
         ? this.updateFacility(this.facility)
-        : this.createFacility(this.facility);
+        : this.createFacility(this.facility)
+      ).then((resp) => {
+        if ([200, 201].includes(resp.status)) {
+          this.$refs["facility-modal-form"].hide();
+        }
+      })
     },
   },
 };

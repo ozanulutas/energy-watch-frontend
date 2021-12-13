@@ -1,8 +1,8 @@
-import { required, numeric } from "vuelidate/lib/validators";
+import { required, integer, decimal } from "vuelidate/lib/validators";
 
 export default {
   validations: {
-    facility: {
+    consumption: {
       department: {
         required,
       },
@@ -14,19 +14,19 @@ export default {
       },
       fee: {
         required,
-        numeric
+        decimal
       },
       discounted_price: {
         required,
-        numeric
+        decimal
       },
       consumption: {
         required,
-        numeric
+        decimal
       },
       facility_id: {
         required,
-        numeric
+        integer,
       }
     },
   },

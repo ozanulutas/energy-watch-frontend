@@ -1,19 +1,25 @@
 <template>
   <b-modal
+    ref="column-modal-form"
     id="column-modal-form"
     v-model="visible"
     :title="$t('customCol.createForm.title')"
     hide-footer
   >
     <b-form @submit.prevent="handleSubmit()">
-    
-
       <!-- Col Name -->
       <b-form-group
         :label="$t('customCol.createForm.name')"
         class="mb-3"
       >
-        <b-form-input v-model="col.name"></b-form-input>
+        <b-form-input
+          v-model="col.name"
+          :state="validateState('col.name')"
+        ></b-form-input>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+          {{ `${ $t("common.and") } ${ $t("formError.maxChar", { n: 255 }) }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
 
       <!-- Col Alias -->
@@ -21,7 +27,14 @@
         :label="$t('customCol.createForm.alias')"
         class="mb-3"
       >
-        <b-form-input v-model="col.alias"></b-form-input>
+        <b-form-input
+          v-model="col.alias"
+          :state="validateState('col.alias')"
+        ></b-form-input>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+          {{ `${ $t("common.and") } ${ $t("formError.maxChar", { n: 255 }) }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
 
       <!-- Col Type -->
@@ -32,7 +45,11 @@
         <b-form-select
           v-model="col.type"
           :options="getColTypes"
+          :state="validateState('col.type')"
         ></b-form-select>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
 
       <hr>
@@ -60,11 +77,15 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import validateState from "@/mixins/validation/validate-state";
+import customColFormValidation from "@/mixins/validation/custom-col";
+
 export default {
   name: "ColumnModalForm",
   props: {
     tblId: { type: Number, required: true },
   },
+  mixins: [validateState, customColFormValidation],
   data() {
     return {
       visible: false, // Modals visibility state
@@ -88,15 +109,30 @@ export default {
       if (modalId === "column-modal-form") {
         this.$emit("update:tbl-id", 0);
         this.col = {};
+        this.$v.$reset();
       }
     });
   },
   methods: {
     ...mapActions("customCol", ["fetchColTypes", "createCol"]),
 
+    // Validates, sets tbl_id and submits the form
     handleSubmit() {
+      this.$v.$touch();
+
+      if (this.$v.$error) {
+        return;
+      }
+
       this.col.tbl_id = this.tblId;
-      this.createCol(this.col);
+
+      this.createCol(this.col)
+        .then((resp) => {
+          if (resp.status === 201) {
+            this.$refs["column-modal-form"].hide();
+          }
+        })
+        .catch((err) => console.log(err));
     },
   },
 };

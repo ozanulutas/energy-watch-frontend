@@ -1,4 +1,4 @@
-import { required, maxLength, integer } from "vuelidate/lib/validators";
+import { required, maxLength } from "vuelidate/lib/validators";
 
 export default {
   validations: {
@@ -13,11 +13,6 @@ export default {
       },
       type: {
         required,
-        maxLength: maxLength(100)
-      },
-      tbl_id: {
-        required,
-        integer
       },
     },
   },

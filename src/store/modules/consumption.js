@@ -48,6 +48,8 @@ export default {
             title: "Success",
             toaster: "b-toaster-bottom-center",
           })
+
+          return resp
         })
         .catch(err => {
           // Show error toast
@@ -73,6 +75,8 @@ export default {
             title: "Success",
             toaster: "b-toaster-bottom-center",
           })
+
+          return resp
         })
         .catch(err => {
           // Show error toast

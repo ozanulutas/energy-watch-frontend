@@ -17,6 +17,7 @@
         ></b-form-input>
         <b-form-invalid-feedback>
           {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+          {{ `${ $t("common.and") } ${ $t("formError.email") }` }}
         </b-form-invalid-feedback>
       </b-form-group>
       <!-- Password -->
@@ -76,10 +77,19 @@ export default {
       },
     };
   },
+  mounted() {
+    // Clear form data and reset validations on modal close
+    this.$root.$on("bv::modal::hide", (bvEvent, modalId) => {
+      if (modalId === "login-modal") {
+        this.user = {};
+        this.$v.$reset();
+      }
+    });
+  },
   methods: {
     ...mapActions("user", ["login"]),
 
-    // Login and hide modal
+    // Validate, Login and hide modal
     handleSubmit() {
       this.$v.$touch();
 

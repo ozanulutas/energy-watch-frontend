@@ -14,7 +14,14 @@
       </b-input-group-text>
     </b-input-group-append>
     <b-form-invalid-feedback>
-      {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+      <div v-if="errorMsg">{{errorMsg}}</div>
+      <div v-else>
+        {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+        {{ `${ $t("common.and") } ${ $t("formError.mustContain") }` }};
+        {{ `${ $t("formError.atLeast") } ${ $t("formError.uppercase", { n: 1 }) }` }},
+        {{ `${ $t("formError.lowercase", { n: 1 }) } ${ $t("common.and") } ${ $t("formError.number", { n: 1 }) }` }}
+      </div>
+
     </b-form-invalid-feedback>
   </b-input-group>
 </template>
@@ -28,6 +35,10 @@ export default {
       type: Boolean,
       required: false,
       default: null,
+    },
+    errorMsg: {
+      type: String,
+      default: "",
     },
   },
   data() {

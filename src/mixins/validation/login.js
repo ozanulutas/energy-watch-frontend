@@ -1,6 +1,5 @@
-import { required, email, alphaNum, minLength, helpers } from "vuelidate/lib/validators";
-
-const upperCase = helpers.regex('upperCase', /[A-Z]/)
+import { required, email, minLength } from "vuelidate/lib/validators";
+import { password } from "@/helpers/validation-helpers";
 
 export default {
   validations: {
@@ -11,9 +10,8 @@ export default {
       },
       password: {
         required,
-        alphaNum,
         minLength: minLength(8),
-        upperCase
+        password,
       },
     },
   },

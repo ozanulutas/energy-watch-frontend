@@ -1,6 +1,7 @@
 <template>
   <b-modal
     id="consumption-modal-form"
+    ref="consumption-modal-form"
     v-model="visible"
     :title="isEdit ? $t('consumption.editForm.title') : $t('consumption.createForm.title')"
     hide-footer
@@ -14,14 +15,24 @@
         <b-form-select
           v-model="consumption.facility_id"
           :options="getFacilities"
+          :state="validateState('consumption.facility_id')"
         ></b-form-select>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <!-- Department -->
       <b-form-group
         :label="$t('consumption.tbl.departmentCol')"
         class="mb-3"
       >
-        <b-form-input v-model="consumption.department"></b-form-input>
+        <b-form-input
+          v-model="consumption.department"
+          :state="validateState('consumption.department')"
+        ></b-form-input>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <!-- Consumption -->
       <b-form-group
@@ -31,7 +42,13 @@
         <b-form-input
           v-model="consumption.consumption"
           type="number"
+          step="0.0001"
+          :state="validateState('consumption.consumption')"
         ></b-form-input>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+          {{ `${ $t("common.and") } ${ $t("formError.num") }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <!-- Fee -->
       <b-form-group
@@ -41,7 +58,13 @@
         <b-form-input
           v-model="consumption.fee"
           type="number"
+          step="0.0001"
+          :state="validateState('consumption.fee')"
         ></b-form-input>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+          {{ `${ $t("common.and") } ${ $t("formError.num") }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <!-- Dsicounted Price -->
       <b-form-group
@@ -51,7 +74,13 @@
         <b-form-input
           v-model="consumption.discounted_price"
           type="number"
+          step="0.0001"
+          :state="validateState('consumption.discounted_price')"
         ></b-form-input>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+          {{ `${ $t("common.and") } ${ $t("formError.num") }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <!-- Start Date -->
       <b-form-group
@@ -60,15 +89,24 @@
       >
         <b-form-datepicker
           v-model="consumption.start_date"
-          @input="($e) => consumption.start_date = new Date($e).toLocaleDateString('fr-CA')"
+          :state="validateState('consumption.start_date')"
         ></b-form-datepicker>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
       <!-- End Date -->
       <b-form-group
         :label="$t('consumption.tbl.endDateCol')"
         class="mb-3"
       >
-        <b-form-datepicker v-model="consumption.end_date"></b-form-datepicker>
+        <b-form-datepicker
+          v-model="consumption.end_date"
+          :state="validateState('consumption.end_date')"
+        ></b-form-datepicker>
+        <b-form-invalid-feedback>
+          {{ `${ $t("formError.introThis") } ${ $t("formError.required") }` }}
+        </b-form-invalid-feedback>
       </b-form-group>
 
       <!-- Custom Cols -->
@@ -86,6 +124,12 @@
           v-if="col.type === 'integer'"
           v-model="consumption[col.name]"
           type="number"
+        ></b-form-input>
+        <b-form-input
+          v-if="col.type === 'double'"
+          v-model="consumption[col.name]"
+          type="number"
+          step="0.0001"
         ></b-form-input>
         <b-form-datepicker
           v-else-if="col.type === 'date'"
@@ -127,12 +171,15 @@
 
 <script>
 import { mapActions, mapState, mapGetters } from "vuex";
+import validateState from "@/mixins/validation/validate-state";
+import consumptionFormValidation from "@/mixins/validation/consumption";
 
 export default {
   name: "ConsumptionModalForm",
   props: {
     data: Object,
   },
+  mixins: [validateState, consumptionFormValidation],
   data() {
     return {
       visible: false, // Modals visibility state
@@ -175,6 +222,7 @@ export default {
       if (modalId === "consumption-modal-form") {
         this.$emit("update:data", {});
         this.consumption = {};
+        this.$v.$reset();
       }
     });
   },
@@ -183,9 +231,20 @@ export default {
     ...mapActions("facility", ["fetchFacilities"]),
 
     handleSubmit() {
-      this.isEdit
+      this.$v.$touch();
+
+      if (this.$v.$error) {
+        return;
+      }
+
+      (this.isEdit
         ? this.updateConsumption(this.consumption)
-        : this.createConsumption(this.consumption);
+        : this.createConsumption(this.consumption)
+      ).then((resp) => {
+        if ([200, 201].includes(resp.status)) {
+          this.$refs["consumption-modal-form"].hide();
+        }
+      });
     },
   },
 };
