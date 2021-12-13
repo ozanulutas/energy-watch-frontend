@@ -83,6 +83,18 @@
         :label="col.type !== 'boolean' ? col.alias : ''"
         class="mb-3"
       >
+        <CustomColInput
+          :col="col"
+          :data="facility[col.name]"
+          v-model="facility[col.name]"
+        />
+      </b-form-group>
+      <!-- <b-form-group
+        v-for="col, i in customCols"
+        :key="i"
+        :label="col.type !== 'boolean' ? col.alias : ''"
+        class="mb-3"
+      >
         <b-form-input
           v-if="col.type === 'text'"
           v-model="facility[col.name]"
@@ -109,7 +121,7 @@
         >
           {{ col.alias }}
         </b-form-checkbox>
-      </b-form-group>
+      </b-form-group> -->
 
       <hr>
 
@@ -140,9 +152,13 @@
 import { mapActions, mapState } from "vuex";
 import validateState from "@/mixins/validation/validate-state";
 import facilityFormValidation from "@/mixins/validation/facility";
+import CustomColInput from "@/components/CustomColInput";
 
 export default {
   name: "FacilityModalForm",
+  components: {
+    CustomColInput,
+  },
   props: {
     data: Object,
   },
@@ -209,7 +225,7 @@ export default {
         if ([200, 201].includes(resp.status)) {
           this.$refs["facility-modal-form"].hide();
         }
-      })
+      });
     },
   },
 };
