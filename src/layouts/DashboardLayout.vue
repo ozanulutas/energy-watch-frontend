@@ -5,7 +5,7 @@
     class="dashboard-layout"
     :class="windowWidth >= 768 ? '' : 'dashboard-layout--sidebar-hidden'"
   >
-    <b-button v-b-toggle.dashboard-sidebar>Toggle Sidebar</b-button>
+    <!-- <b-button v-b-toggle.dashboard-sidebar>Toggle Sidebar</b-button> -->
     <TheSidebar :visible="windowWidth >= 768" @change="sidebarChange"/>
     <router-view></router-view>
   </b-container>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1><i class="fas fa-bolt"></i> {{ $tc("consumption.pageTitle", 2) }}</h1>
-
+    <h1 class="mt-4"><i class="fas fa-bolt"></i> {{ $tc("consumption.pageTitle", 2) }}</h1>
+    <hr class="my-4">
     <div class="d-flex justify-content-between mb-2">
       <!-- Add new record -->
       <b-button
@@ -50,7 +50,7 @@
             variant="outline-danger"
             v-b-tooltip.hover
             title="Delete Column"
-            @click="deleteCustomCol(row.column)"
+            @click="handleDeleteCustomCol(row.column)"
           >
             <i class="fas fa-trash-alt"></i>
           </b-button>
@@ -71,7 +71,7 @@
         <b-button
           size="sm"
           variant="outline-danger"
-          @click="deleteConsumption(row.item.id)"
+          @click="handleDeleteConsumption(row.item.id)"
         >
           <i class="fas fa-trash-alt"></i>
         </b-button>
@@ -169,9 +169,23 @@ export default {
       "fetchConsumptions",
       "deleteCustomCol",
     ]),
+    ...mapActions("msgBox", ["showMsgBox"]),
+
     // Sets the form data for edit action
-    setEditFormData(facility) {
-      this.editFormData = facility;
+    setEditFormData(consumption) {
+      this.editFormData = consumption;
+    },
+    // Deletes a consumption record after confirmation
+    handleDeleteConsumption(id) {
+      this.showMsgBox("Do you want to remove a consumption record?").then(
+        (isConfirmed) => isConfirmed && this.deleteConsumption(id)
+      );
+    },
+    // Deletes a custom consumption column 
+    handleDeleteCustomCol(name) {
+      this.showMsgBox("Do you want to remove a consumption column?").then(
+        (isConfirmed) => isConfirmed && this.deleteCustomCol(name)
+      );
     },
     // Allows dynamically created heads for b-table
     dynmaicHead(key) {

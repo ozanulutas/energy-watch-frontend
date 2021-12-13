@@ -6,6 +6,7 @@ import facility from "@/store/modules/facility"
 import consumption from "@/store/modules/consumption"
 import userRole from "@/store/modules/user-role"
 import customCol from "@/store/modules/custom-col"
+import msgBox from "@/store/modules/msg-box"
 
 
 Vue.use(Vuex)
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     facility,
     consumption,
     userRole,
-    customCol
+    customCol,
+    msgBox
   }
 })

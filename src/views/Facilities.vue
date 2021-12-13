@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1><i class="fas fa-industry"></i> {{ $tc("facility.pageTitle", 2) }}</h1>
-
+    <h1 class="mt-4"><i class="fas fa-industry"></i> {{ $tc("facility.pageTitle", 2) }}</h1>
+    <hr class="my-4">
     <div class="d-flex justify-content-between mb-2">
       <!-- Add new record -->
       <b-button
@@ -49,8 +49,9 @@
           <b-button
             size="sm"
             variant="outline-danger"
-            v-b-tooltip.hover title="Delete Column"
-            @click="deleteCustomCol(row.column)"
+            v-b-tooltip.hover
+            title="Delete Column"
+            @click="handleDeleteCustomCol(row.column)"
           >
             <i class="fas fa-trash-alt"></i>
           </b-button>
@@ -72,7 +73,7 @@
         <b-button
           size="sm"
           variant="outline-danger"
-          @click="deleteFacility(row.item.id)"
+          @click="handleDeleteFacility(row.item.id)"
         >
           <i class="fas fa-trash-alt"></i>
         </b-button>
@@ -80,7 +81,7 @@
     </b-table>
 
     <FacilityModalForm :data.sync="editFormData" />
-    <ColumnModalForm  :tbl-id.sync="tblId"/>
+    <ColumnModalForm :tbl-id.sync="tblId" />
   </div>
 </template>
 
@@ -151,9 +152,23 @@ export default {
       "fetchCustomCols",
       "deleteCustomCol",
     ]),
+    ...mapActions("msgBox", ["showMsgBox"]),
+
     // Sets the form data for edit action
     setEditFormData(facility) {
       this.editFormData = facility;
+    },
+    // Deletes a facility record after confirmation
+    handleDeleteFacility(id) {
+      this.showMsgBox("Do you want to remove a facility record?").then(
+        (isConfirmed) => isConfirmed && this.deleteFacility(id)
+      );
+    },
+    // Deletes a custom facility column 
+    handleDeleteCustomCol(name) {
+      this.showMsgBox("Do you want to remove a facility column?").then(
+        (isConfirmed) => isConfirmed && this.deleteCustomCol(name)
+      );
     },
     // Allows dynamically created heads for b-table
     dynmaicHead(key) {
