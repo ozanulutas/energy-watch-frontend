@@ -84,9 +84,9 @@
         class="mb-3"
       >
         <CustomColInput
-          :col="col"
-          :data="facility[col.name]"
           v-model="facility[col.name]"
+          :data="facility[col.name]"
+          :col="col"
         />
       </b-form-group>
       <!-- <b-form-group

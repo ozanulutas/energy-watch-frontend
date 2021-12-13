@@ -116,32 +116,11 @@
         :label="col.type !== 'boolean' ? col.alias : ''"
         class="mb-3"
       >
-        <b-form-input
-          v-if="col.type === 'text'"
+        <CustomColInput
           v-model="consumption[col.name]"
-        ></b-form-input>
-        <b-form-input
-          v-if="col.type === 'integer'"
-          v-model="consumption[col.name]"
-          type="number"
-        ></b-form-input>
-        <b-form-input
-          v-if="col.type === 'double'"
-          v-model="consumption[col.name]"
-          type="number"
-          step="0.0001"
-        ></b-form-input>
-        <b-form-datepicker
-          v-else-if="col.type === 'date'"
-          v-model="consumption[col.name]"
-        ></b-form-datepicker>
-        <b-form-checkbox
-          v-else-if="col.type === 'boolean'"
-          v-model="consumption[col.name]"
-          :name="`${col.alias}-${i}`"
-        >
-          {{ col.alias }}
-        </b-form-checkbox>
+          :data="consumption[col.name]"
+          :col="col"
+        />
       </b-form-group>
 
       <hr>
@@ -173,9 +152,13 @@
 import { mapActions, mapState, mapGetters } from "vuex";
 import validateState from "@/mixins/validation/validate-state";
 import consumptionFormValidation from "@/mixins/validation/consumption";
+import CustomColInput from "@/components/CustomColInput";
 
 export default {
   name: "ConsumptionModalForm",
+  components: {
+    CustomColInput,
+  },
   props: {
     data: Object,
   },
