@@ -10,7 +10,10 @@
           <p class="text-light">
             We are watching it for you!
           </p>
-          <b-button variant="primary">
+          <b-button
+            v-b-modal.register-modal
+            variant="primary"
+          >
             REGISTER NOW
           </b-button>
         </div>
