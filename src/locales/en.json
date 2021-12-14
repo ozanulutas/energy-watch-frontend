@@ -16,8 +16,6 @@
   },
   "formError": {
     "introThis": "This field",
-    "introPlease": "Please enter",
-    "mustBe": "must be",
     "mustContain": "must contain",
     "atLeast": "at least",
     "required": "is required",

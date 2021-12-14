@@ -4,7 +4,7 @@
       <h1 class="mt-4"><i class="fas fa-bolt"></i> {{ $tc("consumption.pageTitle", 2) }}</h1>
 
       <!-- SEARCH -->
-      <b-input-group class="shadow-sm">
+      <b-input-group class="search-input shadow-sm">
         <b-form-select
           v-model="searchParams.facility_id"
           :options="[
@@ -257,4 +257,7 @@ export default {
 </script>
 
 <style>
+.search-input {
+  max-width: 20rem;
+}
 </style>

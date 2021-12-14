@@ -3,9 +3,35 @@
     "yes": "Evet",
     "no": "Hayır",
     "logIn": "Giriş",
-    "register": "Üye Ol"
+    "register": "Üye Ol",
+    "welcome": "Hoş geldin",
+    "actions": "İşlemler",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "facility": "Tesis",
+    "consumption": "Tüketim",
+    "addColBtn": "Yeni Sütun Oluştur",
+    "and": "ve",
+    "one": "bir"
+  },
+  "formError": {
+    "introThis": "Bu alan",
+    "mustContain": "içermelidir",
+    "atLeast": "en az",
+    "required": "zorunludur",
+    "uppercase": "{n} büyük harf",
+    "lowercase": "{n} küçük harf",
+    "number": "{n} rakam",
+    "password": "geçerli bir şifre olmalıdır",
+    "email": "geçerli bir email olmalıdır",
+    "int": "tam sayı olmalıdır",
+    "num": "sayı olmalıdır",
+    "minChar": "en az {n} karakter uzunluğunda",
+    "maxChar": "en çok {n} karakter uzunluğunda",
+    "passwordNotMatch": "Şifreler eşleşmiyor"
   },
   "navbar": {
+    "welcomeUser": "@:common.welcome {user}",
     "link": {
       "home": "Ana Sayfa",
       "dashboard": "Panel",
@@ -18,5 +44,87 @@
       "lang": "Dil",
       "user": "Kullanıcı"
     }
+  },
+  "logIn": {
+    "modal": {
+      "title": "@:common.logIn",
+      "submitBtn": "@:common.logIn",
+      "registerBtn": "Şimdi @:common.register!",
+      "callToAction": "Henüz bir hesabınız yok mu?"
+    },
+    "form": {
+      "emailLabel": "Email",
+      "passwordLabel": "Şifre",
+      "rememberMe": "Beni hatırla"
+    }
+  },
+  "register": {
+    "modal": {
+      "title": "@:common.register",
+      "submitBtn": "@:common.register",
+      "registerBtn": "@:common.logIn",
+      "callToAction": "Zaten üye misiniz?"
+    },
+    "form": {
+      "nameLabel": "İsim",
+      "emailLabel": "Email",
+      "roleLabel": "Yetki",
+      "passwordLabel": "Şifre",
+      "confirmPasswordLabel": "Şifre Onay"
+    }
+  },
+  "facility": {
+    "pageTitle": "Tesis | Tesisler",
+    "addRecordBtn": "Yeni @:common.facility Ekle",
+    "tbl": {
+      "nameCol": "Tesis Adı",
+      "employeesCol": "Çalışanlar",
+      "isSpecialCol": "Üyelik Türü",
+      "startDateCol": "Üyelik Başlangıç Tarihi",
+      "endDateCol": "Üyelik Bitiş Tarihi",
+      "actionsCol": "@:common.actions"
+    },
+    "createForm": {
+      "title": "Yeni @:common.facility"
+    },
+    "editForm": {
+      "title": "@:common.facility Düzenle"
+    },
+    "membershipTypes": {
+      "normal": "Normal Üye",
+      "special": "Özel Üye"
+    }
+  },
+  "consumption": {
+    "pageTitle": "Tüketim | Tüketimler",
+    "addRecordBtn": "Yeni @:common.consumption Ekle",
+    "tbl": {
+      "facilityNameCol": "@:common.facility Adı",
+      "departmentCol": "Departman",
+      "consumptionCol": "Tüketim",
+      "feeCol": "Tutar",
+      "discountedPriceCol": "İnidimli Fiyat",
+      "dateRangeCol": "Zaman Aralığı",
+      "startDateCol": "Başlangıç Tarihi",
+      "endDateCol": "Bitiş Tarihi",
+      "actionsCol": "@:common.actions"
+    },
+    "createForm": {
+      "title": "Yeni @:common.consumption"
+    },
+    "editForm": {
+      "title": "@:common.consumption Düzenle"
+    }
+  },
+  "customCol": {
+    "createForm": {
+      "title": "Yeni Sütun",
+      "name": "Sütunun Veritabanındaki Adı",
+      "alias": "Sütunun Görünen Adı",
+      "type": "Tür"
+    }
+  },
+  "userSettings": {
+    "pageTitle": "Kullanıcı Ayarları | Kullanıcı Ayarları"
   }
 }
