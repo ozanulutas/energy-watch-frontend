@@ -125,6 +125,8 @@
     }
   },
   "userSettings": {
-    "pageTitle": "Kullanıcı Ayarları | Kullanıcı Ayarları"
+    "pageTitle": "Kullanıcı Ayarları | Kullanıcı Ayarları",
+    "general": "Genel Ayarlar",
+    "password": "Şifre Ayarları"
   }
 }

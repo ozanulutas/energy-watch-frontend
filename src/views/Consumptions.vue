@@ -55,7 +55,7 @@
       hover
       :items="consumptions"
       :fields="fields"
-      empty-text="There are no records to show"
+      responsive
     >
       <!-- Custom columns -->
       <template

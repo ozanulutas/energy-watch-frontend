@@ -125,6 +125,8 @@
     }
   },
   "userSettings": {
-    "pageTitle": "User Setting | User Settings"
+    "pageTitle": "User Setting | User Settings",
+    "general": "General Settings",
+    "password": "Password Setting"
   }
 }

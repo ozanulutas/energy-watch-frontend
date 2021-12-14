@@ -2,7 +2,7 @@
   <div>
     <h1 class="mt-4"><i class="fas fa-industry"></i> {{ $tc("facility.pageTitle", 2) }}</h1>
     <hr class="my-4">
-    <div class="d-flex justify-content-between mb-2">
+    <div class="d-flex justify-content-between flex-wrap mb-2">
       <!-- Add new record -->
       <b-button
         class="shadow-sm"
@@ -30,6 +30,7 @@
       hover
       :items="facilities"
       :fields="fields"
+      responsive
     >
       <!-- Custom columns -->
       <template
@@ -133,6 +134,7 @@ export default {
           key: "is_special",
           label: this.$t("facility.tbl.isSpecialCol"),
           sortable: true,
+          formatter: (val) => val ? this.$t("facility.membershipTypes.normal") : this.$t("facility.membershipTypes.special")
         },
         {
           key: "membership_start_date",

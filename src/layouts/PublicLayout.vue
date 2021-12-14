@@ -1,10 +1,10 @@
 <template>
-  <b-container>
+  <div>
     <router-view></router-view>
 
     <LoginModal />
     <RegisterModal />
-  </b-container>
+  </div>
 </template>
 
 <script>

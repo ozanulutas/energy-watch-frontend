@@ -2,12 +2,17 @@
   <b-container
     ref="dashboard-layout"
     fluid
-    class="dashboard-layout"
-    :class="windowWidth >= 768 ? '' : 'dashboard-layout--sidebar-hidden'"
+    class="dashboard-layout bg-light"
+    :class="windowWidth >= 992 ? '' : 'dashboard-layout--sidebar-hidden'"
   >
     <!-- <b-button v-b-toggle.dashboard-sidebar>Toggle Sidebar</b-button> -->
-    <TheSidebar :visible="windowWidth >= 768" @change="sidebarChange"/>
-    <router-view></router-view>
+    <TheSidebar
+      :visible="windowWidth >= 992"
+      @change="sidebarChange"
+    />
+    <div class="m-3 p-3 rounded shadow bg-white">
+      <router-view></router-view>
+    </div>
   </b-container>
 </template>
 
@@ -22,18 +27,20 @@ export default {
   data() {
     return {
       layoutClass: "",
-    }
+    };
   },
   computed: {
     windowWidth() {
-      return window.innerWidth
-    }
+      return window.innerWidth;
+    },
   },
   methods: {
     // Toggles layout class on sidebar change
     sidebarChange() {
-      this.$refs["dashboard-layout"].classList.toggle("dashboard-layout--sidebar-hidden")
-    }
-  }
+      this.$refs["dashboard-layout"].classList.toggle(
+        "dashboard-layout--sidebar-hidden"
+      );
+    },
+  },
 };
 </script>

@@ -20,17 +20,17 @@
         to="/facilities"
         exact-active-class="text-primary"
         class="bg-transparent"
-      ><i class="fas fa-industry"></i> Facilities</b-list-group-item>
+      ><i class="fas fa-industry"></i> {{ $tc("facility.pageTitle", 2) }}</b-list-group-item>
       <b-list-group-item
         exact-active-class="text-primary"
         to="/consumptions"
         class="bg-transparent"
-      ><i class="fas fa-bolt"></i> Consumptions</b-list-group-item>
+      ><i class="fas fa-bolt"></i> {{ $tc("consumption.pageTitle", 1) }}</b-list-group-item>
       <b-list-group-item
         to="/user-settings"
         exact-active-class="text-primary"
         class="bg-transparent"
-      ><i class="fas fa-user-cog"></i> User Settings</b-list-group-item>
+      ><i class="fas fa-user-cog"></i> {{ $tc("userSettings.pageTitle", 2) }}</b-list-group-item>
     </b-list-group>
   </b-sidebar>
 </template>
