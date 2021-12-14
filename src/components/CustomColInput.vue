@@ -27,6 +27,8 @@
       v-else-if="col.type === 'boolean'"
       :checked="data"
       :name="`${col.name}`"
+      :unchecked-value="false"
+      :value="true"
       @input="($e) => $emit('input', $e)"
     >
       {{ col.alias }}

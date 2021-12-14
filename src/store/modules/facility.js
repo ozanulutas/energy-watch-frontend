@@ -1,4 +1,6 @@
 import axios from "@/plugins/axios"
+import { prepareDate } from "@/helpers/date-helpers"
+import { authorizeOrDie } from "@/middleware/store-authorization"
 
 export default {
   namespaced: true,
@@ -33,7 +35,17 @@ export default {
         })
     },
     // Delete a facility record
-    deleteFacility({ dispatch }, payload) {
+    deleteFacility({ dispatch, rootGetters }, payload) {
+      // Get user role
+      const { role: userRole } = rootGetters["user/getUser"]
+      // Checks if user authorized by given params,
+      // die if fails
+      authorizeOrDie({ 
+        userRole, 
+        contidions: ["admin"], 
+        message: "You need to be ADMIN for delete operations" 
+      })
+
       return axios.delete(`/facilities/${payload}`)
         .then(resp => {
           dispatch("fetchFacilities")
@@ -52,8 +64,21 @@ export default {
         })
     },
     // Create a facility record
-    createFacility({ dispatch }, payload) {
+    createFacility({ dispatch, rootGetters }, payload) {
+      // Get user role
+      const { role: userRole } = rootGetters["user/getUser"]
+      // Checks if user authorized by given params,
+      // die if fails
+      authorizeOrDie({ 
+        userRole, 
+        contidions: ["admin", "editor"], 
+        message: "You need to be EDITOR for create operations" 
+      })
       
+      // Parses date
+      payload.membership_start_date = prepareDate(payload.membership_start_date)
+      payload.membership_end_date = prepareDate(payload.membership_end_date)
+
       return axios.post(`/facilities`, {
         ...payload
       })
@@ -76,7 +101,21 @@ export default {
         })
     },
     // Update a facility record
-    updateFacility({ dispatch }, payload) {
+    updateFacility({ dispatch, rootGetters }, payload) {
+      // Get user role
+      const { role: userRole } = rootGetters["user/getUser"]
+      // Checks if user authorized by given params,
+      // die if fails
+      authorizeOrDie({ 
+        userRole, 
+        contidions: ["admin", "editor"], 
+        message: "You need to be EDITOR for update operations" 
+      })
+
+      // Parses date
+      payload.membership_start_date = prepareDate(payload.membership_start_date)
+      payload.membership_end_date = prepareDate(payload.membership_end_date)
+
       return axios.put(`/facilities/${payload.id}`, {
         ...payload
       })
@@ -113,7 +152,17 @@ export default {
         })
     },
     // Removes user specificied facility column
-    deleteCustomCol({ dispatch }, payload) {
+    deleteCustomCol({ dispatch, rootGetters }, payload) {
+      // Get user role
+      const { role: userRole } = rootGetters["user/getUser"]
+      // Checks if user authorized by given params,
+      // die if fails
+      authorizeOrDie({ 
+        userRole, 
+        contidions: ["admin"], 
+        message: "You need to be ADMIN for delete operations" 
+      })
+
       return axios.delete(`/custom-cols/${payload}/table/1`)
         .then(resp => {
           dispatch("fetchCustomCols")
@@ -137,14 +186,14 @@ export default {
     getCustomCols: state => {
       return state.customCols.map((col) => ({
         key: col.name,
-        label: col.alias,  
-        sortable: true 
+        label: col.alias,
+        sortable: true
       }))
     },
     // Prepares facility records to use in b-select
     getFacilities: state => {
       return state.facilities.map((facility) => ({
-        value: facility.id, 
+        value: facility.id,
         text: facility.name
       }))
     },

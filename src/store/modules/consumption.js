@@ -1,5 +1,6 @@
 import axios from "@/plugins/axios"
 import { prepareDate } from "@/helpers/date-helpers"
+import { authorizeOrDie } from "@/middleware/store-authorization"
 
 export default {
   namespaced: true,
@@ -34,7 +35,18 @@ export default {
         })
     },
     // Creates a consumption record
-    createConsumption({ dispatch }, payload) {
+    createConsumption({ dispatch, rootGetters }, payload) {
+      // Get user role
+      const { role: userRole } = rootGetters["user/getUser"]
+      // Checks if user authorized by given params,
+      // die if fails
+      authorizeOrDie({ 
+        userRole, 
+        contidions: ["admin", "editor"], 
+        message: "You need to be EDITOR for create operations" 
+      })
+
+      // Parses date
       payload.start_date = prepareDate(payload.start_date)
       payload.end_date = prepareDate(payload.end_date)
 
@@ -60,7 +72,18 @@ export default {
         })
     },
     // Updates a consumption record
-    updateConsumption({ dispatch }, payload) {
+    updateConsumption({ dispatch, rootGetters }, payload) {
+      // Get user role
+      const { role: userRole } = rootGetters["user/getUser"]
+      // Checks if user authorized by given params,
+      // die if fails
+      authorizeOrDie({ 
+        userRole, 
+        contidions: ["admin", "editor"], 
+        message: "You need to be EDITOR for update operations" 
+      })
+
+      // Parses date
       payload.start_date = prepareDate(payload.start_date)
       payload.end_date = prepareDate(payload.end_date)
       delete payload.facility_name
@@ -87,7 +110,17 @@ export default {
         })
     },
     // Delete a consumption record
-    deleteConsumption({ dispatch }, payload) {
+    deleteConsumption({ dispatch, rootGetters }, payload) {
+      // Get user role
+      const { role: userRole } = rootGetters["user/getUser"]
+      // Checks if user authorized by given params,
+      // die if fails
+      authorizeOrDie({ 
+        userRole, 
+        contidions: ["admin"], 
+        message: "You need to be ADMIN for delete operations" 
+      })
+
       return axios.delete(`/consumptions/${payload}`)
         .then(resp => {
           dispatch("fetchConsumptions")
@@ -120,7 +153,17 @@ export default {
         })
     },
     // Removes user specificied consumption column
-    deleteCustomCol({ dispatch }, payload) {
+    deleteCustomCol({ dispatch, rootGetters }, payload) {
+      // Get user role
+      const { role: userRole } = rootGetters["user/getUser"]
+      // Checks if user authorized by given params,
+      // die if fails
+      authorizeOrDie({ 
+        userRole, 
+        contidions: ["admin"], 
+        message: "You need to be ADMIN for delete operations" 
+      })
+      
       return axios.delete(`/custom-cols/${payload}/table/2`)
         .then(resp => {
           dispatch("fetchCustomCols")
