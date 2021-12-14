@@ -1,6 +1,8 @@
 .dashboard-layout {
+  $sidebar-width: 250px;
+
   max-height: calc(100vh - 72px);
-  padding-left: calc(320px + 15px);
+  padding-left: calc($sidebar-width + 15px);
   overflow-x: auto;
   transition: padding-left 0.4s;
 
@@ -12,5 +14,6 @@
     top: unset;
     bottom: 0;
     height: calc(100vh - 72px);
+    width: $sidebar-width;
   }
 }

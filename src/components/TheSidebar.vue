@@ -2,10 +2,10 @@
   <b-sidebar
     id="dashboard-sidebar"
     sidebar-class="dashboard-layout__sidebar"
-    title="Sidebar"
+    title=""
     :visible="visible"
-    bg-variant="dark"
-    text-variant="light"
+    bg-variant="light"
+    text-variant="dark"
     shadow
     no-header-close
     no-close-on-esc
@@ -16,18 +16,20 @@
       class="px-4"
       flush
     >
-
       <b-list-group-item
         to="/facilities"
-        class="bg-transparent text-light"
+        exact-active-class="text-primary"
+        class="bg-transparent"
       ><i class="fas fa-industry"></i> Facilities</b-list-group-item>
       <b-list-group-item
+        exact-active-class="text-primary"
         to="/consumptions"
-        class="bg-transparent text-light"
+        class="bg-transparent"
       ><i class="fas fa-bolt"></i> Consumptions</b-list-group-item>
       <b-list-group-item
         to="/user-settings"
-        class="bg-transparent text-light"
+        exact-active-class="text-primary"
+        class="bg-transparent"
       ><i class="fas fa-user-cog"></i> User Settings</b-list-group-item>
     </b-list-group>
   </b-sidebar>
