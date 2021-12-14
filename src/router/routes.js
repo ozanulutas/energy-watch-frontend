@@ -28,6 +28,11 @@ export default [
         name: 'Consumptions',
         component: () => import('../views/Consumptions.vue'),
       },
+      {
+        path: '/user-settings',
+        name: 'UserSettings',
+        component: () => import('../views/UserSettings.vue'),
+      },
     ]
   },
 ]

@@ -1,8 +1,9 @@
 <template>
-  <b-nav-item-dropdown
-    :text="$t('navbar.dropdown.lang')"
-    right
-  >
+  <b-nav-item-dropdown right>
+    <template #button-content>
+      <i class="fas fa-language"></i>
+      {{ $t('navbar.dropdown.lang') }}
+    </template>
     <b-dropdown-item
       v-for="lang, i in langs"
       :key="i"
@@ -25,8 +26,8 @@ export default {
   },
   methods: {
     changeLocale(lang) {
-      this.$root.$i18n.locale = lang
-    }
-  }
+      this.$root.$i18n.locale = lang;
+    },
+  },
 };
 </script>

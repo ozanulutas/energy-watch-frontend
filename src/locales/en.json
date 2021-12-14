@@ -125,5 +125,8 @@
       "alias": "Alias",
       "type": "Type"
     }
+  },
+  "userSettings": {
+    "pageTitle": "User Setting | User Settings"
   }
 }
