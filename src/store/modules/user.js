@@ -2,7 +2,7 @@ import axios from "@/plugins/axios"
 
 export default {
   namespaced: true,
-  
+
   state: () => ({
     // User info
     user: {},
@@ -10,6 +10,15 @@ export default {
   mutations: {
     SET_USER(state, payload) {
       state.user = payload
+    },
+    // Updates yser with partial values
+    PATCH_USER(state, payload) {
+      const user = state.user
+      for (const key in payload) {
+        if (Object.hasOwnProperty.call(user, key)) {
+          user[key] = payload[key];
+        }
+      }
     },
   },
   actions: {
@@ -75,6 +84,60 @@ export default {
         title: "Successfully Logged Out",
         toaster: "b-toaster-bottom-center",
       })
+    },
+    // Updates user settings and sets state and localstorage
+    updateSettings({ commit, getters }, payload) {
+      const user = getters.getUser
+      const { id } = user
+
+      return axios.put(`/user/${id}/settings`, payload)
+        .then(resp => {
+          commit("PATCH_USER", resp.data.user)
+
+          // Update user info from local storage if it is there
+          if (JSON.parse(localStorage.getItem("rememberUser"))) {
+            const user = JSON.parse(localStorage.getItem("user"))
+            user.name = resp.data.user.name
+            user.role = resp.data.user.role
+            localStorage.setItem("user", JSON.stringify(user))
+          }
+
+          // Show welcome tast
+          this.$app.$bvToast.toast(resp.data.message, {
+            title: "Success",
+            toaster: "b-toaster-bottom-center",
+          })
+
+        })
+        .catch(err => {
+          // Show error toast
+          this.$app.$bvToast.toast(err.response.data.message, {
+            title: "Error",
+            toaster: "b-toaster-bottom-center",
+          })
+        })
+    },
+    // Logs user in and saves jwt to localstorage
+    updatePassword({ getters }, payload) {
+      const user = getters.getUser
+      const { id } = user
+
+      return axios.put(`/user/${id}/password`, payload)
+        .then(resp => {
+          // Show welcome tast
+          this.$app.$bvToast.toast(resp.data.message, {
+            title: "Success",
+            toaster: "b-toaster-bottom-center",
+          })
+
+        })
+        .catch(err => {
+          // Show error toast
+          this.$app.$bvToast.toast(err.response.data.message, {
+            title: "Error",
+            toaster: "b-toaster-bottom-center",
+          })
+        })
     },
   },
   getters: {

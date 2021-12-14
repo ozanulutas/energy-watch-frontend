@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import validateState from "@/mixins/validation/validate-state";
 import passwordSettingsFormValidation from "@/mixins/validation/password-settings";
 import BasePasswordInput from "@/components/BasePasswordInput";
@@ -53,7 +54,9 @@ export default {
     };
   },
   methods: {
-    // Validate, register
+    ...mapActions("user", ["updatePassword"]),
+
+    // Validate, update password
     handleSubmitPasswordSettings() {
       this.$v.$touch();
 
@@ -61,13 +64,7 @@ export default {
         return;
       }
 
-      // this.register(this.user)
-      //   .then((resp) => {
-      //     if (resp.status === 201) {
-      //       this.$refs["register-modal"].hide();
-      //     }
-      //   })
-      //   .catch((err) => console.log(err));
+      this.updatePassword(this.passwordSettings)
     },
   },
 };

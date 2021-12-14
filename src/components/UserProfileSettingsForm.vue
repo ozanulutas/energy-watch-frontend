@@ -68,8 +68,9 @@ export default {
   },
   methods: {
     ...mapActions("userRole", ["fetchUserRoles"]),
+    ...mapActions("user", ["updateSettings"]),
 
-    // Validate, register
+    // Validate, update profile info
     handleSubmitProfileSettings() {
       this.$v.$touch();
 
@@ -77,13 +78,7 @@ export default {
         return;
       }
 
-      // this.register(this.user)
-      //   .then((resp) => {
-      //     if (resp.status === 201) {
-      //       this.$refs["register-modal"].hide();
-      //     }
-      //   })
-      //   .catch((err) => console.log(err));
+      this.updateSettings(this.profileSettings)
     },
   }
 };

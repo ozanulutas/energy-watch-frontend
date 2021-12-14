@@ -9,6 +9,7 @@
       <b-dropdown-item v-b-modal.register-modal>{{ $t('navbar.link.register') }}</b-dropdown-item>
     </div>
     <div v-if="user.id">
+      <b-dropdown-item to="/facilities">{{ $t('navbar.link.dashboard') }}</b-dropdown-item>
       <b-dropdown-item to="/user-settings">{{ $t('navbar.link.profile') }}</b-dropdown-item>
       <b-dropdown-divider></b-dropdown-divider>
       <b-dropdown-item @click.stop="logout">{{ $t('navbar.link.logOut') }}</b-dropdown-item>
