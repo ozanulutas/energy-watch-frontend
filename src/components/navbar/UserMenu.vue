@@ -28,6 +28,7 @@ export default {
   computed: {
     ...mapGetters("user", { user: "getUser" }),
   },
+
   methods: {
     ...mapActions("user", ["logout"]),
   },

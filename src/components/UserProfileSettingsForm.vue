@@ -42,16 +42,13 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 import validateState from "@/mixins/validation/validate-state";
 import profileSettingsFormValidation from "@/mixins/validation/profile-settings";
 
 export default {
   name: "UserProfileSettingsForm",
-   mixins: [
-    validateState,
-    profileSettingsFormValidation,
-  ],
+  mixins: [validateState, profileSettingsFormValidation],
   data() {
     return {
       profileSettings: {
@@ -60,11 +57,16 @@ export default {
       },
     };
   },
-    computed: {
+  computed: {
     ...mapState("userRole", ["userRoles"]),
+    ...mapGetters("user", ["getUser"]),
   },
   mounted() {
     this.fetchUserRoles();
+
+    // Set form's initial values
+    this.profileSettings.name = this.getUser.name;
+    this.profileSettings.role = this.getUser.role;
   },
   methods: {
     ...mapActions("userRole", ["fetchUserRoles"]),
@@ -78,8 +80,8 @@ export default {
         return;
       }
 
-      this.updateSettings(this.profileSettings)
+      this.updateSettings(this.profileSettings);
     },
-  }
+  },
 };
 </script>

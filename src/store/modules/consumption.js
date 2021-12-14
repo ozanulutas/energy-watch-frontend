@@ -34,6 +34,20 @@ export default {
           })
         })
     },
+    // Fetches consumptions records
+    fetchFacilityConsumptions({ commit }, payload) {
+      return axios.get(`/consumptions/facilities/${payload}`)
+        .then(resp => {
+          commit("SET_CONSUMPTIONS", resp.data.results)
+        })
+        .catch(err => {
+          // Show error toast
+          this.$app.$bvToast.toast(err.response.data.message, {
+            title: "Error",
+            toaster: "b-toaster-bottom-center",
+          })
+        })
+    },
     // Creates a consumption record
     createConsumption({ dispatch, rootGetters }, payload) {
       // Get user role

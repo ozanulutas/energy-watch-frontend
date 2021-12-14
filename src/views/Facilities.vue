@@ -5,6 +5,7 @@
     <div class="d-flex justify-content-between mb-2">
       <!-- Add new record -->
       <b-button
+        class="shadow-sm"
         variant="outline-primary"
         v-b-modal.facility-modal-form
       >
@@ -14,6 +15,7 @@
 
       <!-- Addn new col -->
       <b-button
+        class="shadow-sm"
         variant="outline-primary"
         v-b-modal.column-modal-form
         @click="tblId = 1"
@@ -45,8 +47,8 @@
           triggers="hover"
           placement="top"
         >
-          <!-- <template #title>Popover Title</template> -->
           <b-button
+            class="shadow-sm"
             size="sm"
             variant="outline-danger"
             v-b-tooltip.hover
@@ -56,14 +58,13 @@
             <i class="fas fa-trash-alt"></i>
           </b-button>
         </b-popover>
-        <!-- </template> -->
       </template>
 
       <!-- Actions -->
       <template #cell(actions)="row">
         <b-button
           size="sm"
-          class="mr-2"
+          class="mr-2 shadow-sm"
           variant="outline-info"
           v-b-modal.facility-modal-form
           @click="setEditFormData(row.item)"
@@ -72,10 +73,21 @@
         </b-button>
         <b-button
           size="sm"
+          class="mr-2 shadow-sm"
           variant="outline-danger"
           @click="handleDeleteFacility(row.item.id)"
         >
           <i class="fas fa-trash-alt"></i>
+        </b-button>
+        <b-button
+          class="shadow-sm"
+          size="sm"
+          variant="outline-warning"
+          v-b-tooltip.hover
+          title="Consumption Details"
+          @click="searchConsumption(row.item.id)"
+        >
+          <i class="fas fa-bolt"></i>
         </b-button>
       </template>
     </b-table>
@@ -164,7 +176,7 @@ export default {
         (isConfirmed) => isConfirmed && this.deleteFacility(id)
       );
     },
-    // Deletes a custom facility column 
+    // Deletes a custom facility column
     handleDeleteCustomCol(name) {
       this.showMsgBox("Do you want to remove a facility column?").then(
         (isConfirmed) => isConfirmed && this.deleteCustomCol(name)
@@ -173,6 +185,15 @@ export default {
     // Allows dynamically created heads for b-table
     dynmaicHead(key) {
       return `head(${key.name})`; // simple string interpolation
+    },
+    // Redirects to consumption page to search facility comsumption
+    searchConsumption(id) {
+      this.$router.push({
+        path: "consumptions",
+        query: {
+          facility: id,
+        },
+      });
     },
   },
 };

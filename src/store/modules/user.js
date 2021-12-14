@@ -1,5 +1,6 @@
 import axios from "@/plugins/axios"
 
+
 export default {
   namespaced: true,
 
@@ -15,10 +16,9 @@ export default {
     PATCH_USER(state, payload) {
       const user = state.user
       for (const key in payload) {
-        if (Object.hasOwnProperty.call(user, key)) {
-          user[key] = payload[key];
-        }
+        user[key] = payload[key];
       }
+      console.log(user);
     },
   },
   actions: {

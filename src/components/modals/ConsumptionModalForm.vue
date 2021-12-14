@@ -197,8 +197,6 @@ export default {
     },
   },
   mounted() {
-    // Fetch fatitlities to use in b-select
-    this.fetchFacilities();
 
     // Clear edit form data on modal close
     this.$root.$on("bv::modal::hide", (bvEvent, modalId) => {
@@ -211,7 +209,6 @@ export default {
   },
   methods: {
     ...mapActions("consumption", ["updateConsumption", "createConsumption"]),
-    ...mapActions("facility", ["fetchFacilities"]),
 
     handleSubmit() {
       this.$v.$touch();

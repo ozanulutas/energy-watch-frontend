@@ -1,10 +1,36 @@
 <template>
   <div>
-    <h1 class="mt-4"><i class="fas fa-bolt"></i> {{ $tc("consumption.pageTitle", 2) }}</h1>
+    <div class="d-flex justify-content-between align-items-end flex-wrap">
+      <h1 class="mt-4"><i class="fas fa-bolt"></i> {{ $tc("consumption.pageTitle", 2) }}</h1>
+
+      <!-- SEARCH -->
+      <b-input-group class="shadow-sm">
+        <b-form-select
+          v-model="searchParams.facility_id"
+          :options="[
+          { value: null, text: 'Select a facility to search' },
+          { value: 'all', text: 'All Records' },
+          ...getFacilities
+        ]"
+        ></b-form-select>
+        <b-input-group-append>
+          <b-button
+            variant="primary"
+            :disabled="!searchParams.facility_id"
+            @click="searchConsumption()"
+          >
+            <i class="fas fa-search"></i>
+          </b-button>
+        </b-input-group-append>
+      </b-input-group>
+    </div>
+
     <hr class="my-4">
+
     <div class="d-flex justify-content-between mb-2">
       <!-- Add new record -->
       <b-button
+        class="shadow-sm"
         variant="outline-primary"
         v-b-modal.consumption-modal-form
       >
@@ -14,6 +40,7 @@
 
       <!-- Add new col -->
       <b-button
+        class="shadow-sm"
         variant="outline-primary"
         v-b-modal.column-modal-form
         @click="tblId = 2"
@@ -28,6 +55,7 @@
       hover
       :items="consumptions"
       :fields="fields"
+      empty-text="There are no records to show"
     >
       <!-- Custom columns -->
       <template
@@ -60,8 +88,8 @@
       <!-- Actions -->
       <template #cell(actions)="row">
         <b-button
+          class="mr-2 shadow-sm"
           size="sm"
-          class="mr-2"
           variant="outline-info"
           v-b-modal.consumption-modal-form
           @click="setEditFormData(row.item)"
@@ -69,6 +97,7 @@
           <i class="fas fa-pencil-alt"></i>
         </b-button>
         <b-button
+          class="shadow-sm"
           size="sm"
           variant="outline-danger"
           @click="handleDeleteConsumption(row.item.id)"
@@ -100,11 +129,16 @@ export default {
       editFormData: {},
       // Table id to use in custom column creation
       tblId: 2,
+      // Search params for consumption search
+      searchParams: {
+        facility_id: null,
+      },
     };
   },
   computed: {
     ...mapState("consumption", ["consumptions", "customCols"]),
     ...mapGetters("consumption", ["getCustomCols"]),
+    ...mapGetters("facility", ["getFacilities"]),
 
     // Table fields
     fields() {
@@ -161,6 +195,14 @@ export default {
   mounted() {
     this.fetchCustomCols();
     this.fetchConsumptions();
+    // Fetch fatitlities to use in b-select
+    this.fetchFacilities();
+
+    // If tehere is facility url query, seraches it's consumptions
+    if (this.$route.query.facility) {
+      this.searchParams.facility_id = this.$route.query.facility;
+      this.searchConsumption();
+    }
   },
   methods: {
     ...mapActions("consumption", [
@@ -168,7 +210,9 @@ export default {
       "deleteConsumption",
       "fetchConsumptions",
       "deleteCustomCol",
+      "fetchFacilityConsumptions",
     ]),
+    ...mapActions("facility", ["fetchFacilities"]),
     ...mapActions("msgBox", ["showMsgBox"]),
 
     // Sets the form data for edit action
@@ -181,11 +225,28 @@ export default {
         (isConfirmed) => isConfirmed && this.deleteConsumption(id)
       );
     },
-    // Deletes a custom consumption column 
+    // Deletes a custom consumption column
     handleDeleteCustomCol(name) {
       this.showMsgBox("Do you want to remove a consumption column?").then(
         (isConfirmed) => isConfirmed && this.deleteCustomCol(name)
       );
+    },
+    // Searches consumption bu facility and sets the url query accordingly
+    searchConsumption() {
+      const facilityId = this.searchParams.facility_id;
+
+      facilityId === "all"
+        ? this.fetchConsumptions()
+        : this.fetchFacilityConsumptions(facilityId);
+
+      if (this.$route.query.facility !== facilityId) {
+        this.$router.push({
+          path: "consumptions",
+          query: {
+            facility: facilityId,
+          },
+        });
+      }
     },
     // Allows dynamically created heads for b-table
     dynmaicHead(key) {
