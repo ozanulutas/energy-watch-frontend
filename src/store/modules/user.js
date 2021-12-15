@@ -1,4 +1,5 @@
 import axios from "@/plugins/axios"
+import router from "@/router"
 
 
 export default {
@@ -76,6 +77,11 @@ export default {
     },
     // Logs user out
     logout({ commit }) {
+      // Locate user to homepage
+      if (router.currentRoute.fullPath !== "/") {
+        router.push("/")
+      }
+
       localStorage.removeItem("user")
       localStorage.removeItem("rememberUser")
       commit("SET_USER", {})
