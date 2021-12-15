@@ -168,11 +168,11 @@ export default {
           label: this.$t("consumption.tbl.discountedPriceCol"),
           sortable: true,
         },
-        {
-          key: "date_range",
-          label: this.$t("consumption.tbl.dateRangeCol"),
-          sortable: true,
-        },
+        // {
+        //   key: "date_range",
+        //   label: this.$t("consumption.tbl.dateRangeCol"),
+        //   sortable: true,
+        // },
         {
           key: "start_date",
           label: this.$t("consumption.tbl.startDateCol"),

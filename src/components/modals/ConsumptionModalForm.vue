@@ -168,7 +168,7 @@ export default {
       visible: false, // Modals visibility state
       // Form data
       consumption: {
-        date_range: null,
+        // date_range: null,
         start_date: null,
         end_date: null,
         department: "",
