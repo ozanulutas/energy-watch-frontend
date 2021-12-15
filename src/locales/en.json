@@ -122,6 +122,9 @@
       "name": "Name",
       "alias": "Alias",
       "type": "Type"
+    },
+    "alert": {
+      "delete": "To delete the custom column, hover over the column header in the table and click the trash icon."
     }
   },
   "userSettings": {

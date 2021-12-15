@@ -27,10 +27,12 @@ This is the frontend of Energy Watch project. Users can monitor the energy consu
 
 ## Features
 
-- User can perform basic CRUD operations and can record and view custom fileds. It gives the appearance of a new column being created.
+- User can perform basic CRUD operations 
+- Users can record and view custom fileds. It gives the appearance of a new column being created.
+- **Only user created custom columns can be deleted.**
 - Users can login and register.
 - User authentication and authorization is proivded with JWT.
-- User roles are; Admin (read, write, delete), Editor (read, write), User(write).
+- **User roles are; Admin (read, write, delete), Editor (read, write), User(write).**
 - Its a multilingual app, users can change language.
 
 

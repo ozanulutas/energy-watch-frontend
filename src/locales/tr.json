@@ -122,7 +122,11 @@
       "name": "Sütunun Veritabanındaki Adı",
       "alias": "Sütunun Görünen Adı",
       "type": "Tür"
+    },
+    "alert": {
+      "delete": "Özel sütunu silmek için tablodaki sütun başlığının üzerine gelin ve çöp kutusu ikonuna tıklayın."
     }
+    
   },
   "userSettings": {
     "pageTitle": "Kullanıcı Ayarları | Kullanıcı Ayarları",

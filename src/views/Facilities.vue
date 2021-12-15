@@ -25,6 +25,14 @@
       </b-button>
     </div>
 
+    <b-alert
+      dismissible
+      fade
+      show
+    >
+      Dismissible Alert!
+    </b-alert>
+
     <b-table
       ref="table"
       hover
