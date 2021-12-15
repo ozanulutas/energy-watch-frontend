@@ -154,7 +154,7 @@ export default {
     },
     // Fetches user specificied custom consumption columns
     fetchCustomCols({ commit }) {
-      return axios.get("/custom-cols/2")
+      return axios.get("/custom-cols/table/2")
         .then(resp => {
           commit("SET_CUSTOM_COLS", resp.data.results)
         })

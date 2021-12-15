@@ -139,7 +139,7 @@ export default {
     },
     // Fetches user specificied custom facility columns
     fetchCustomCols({ commit }) {
-      return axios.get("/custom-cols/1")
+      return axios.get("/custom-cols/table/1")
         .then(resp => {
           commit("SET_CUSTOM_COLS", resp.data.results)
         })
