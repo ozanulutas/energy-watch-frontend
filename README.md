@@ -7,7 +7,7 @@
 
 This is the frontend of Energy Watch project. Users can monitor and search the energy consumption of facilities and performs basic CRUD operations. It is also multilingual.
 
-![Alt Text](https://github.com/ozanulutas/energy-watch-frontend/blob/main/project-gif)
+![Alt Text](https://github.com/ozanulutas/energy-watch-frontend/blob/main/project-gif.gif)
 
 ## Table of Contents
 
