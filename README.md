@@ -5,7 +5,7 @@
 
 :zap::boom: [Project Link](https://energy-watch-frontend.vercel.app/)
 
-This is the frontend of Energy Watch project. Users can monitor the energy consumption of facilities and performs basic CRUD operations. It is also multilingual.
+This is the frontend of Energy Watch project. Users can monitor and search the energy consumption of facilities and performs basic CRUD operations. It is also multilingual.
 
 
 
@@ -27,7 +27,7 @@ This is the frontend of Energy Watch project. Users can monitor the energy consu
 
 ## Features
 
-- User can perform basic CRUD operations 
+- User can perform basic CRUD operations.
 - Users can record and view custom fileds. It gives the appearance of a new column being created.
 - **Only user created custom columns can be deleted.**
 - Users can login and register.
