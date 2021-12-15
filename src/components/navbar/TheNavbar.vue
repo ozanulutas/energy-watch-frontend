@@ -16,7 +16,16 @@
       >
         <b-navbar-nav>
           <b-nav-item to="/">{{ $t('navbar.link.home') }}</b-nav-item>
-          <!-- <b-btn v-b-modal.login-modal variant="primary">{{ $t('navbar.link.logIn') }}</b-btn> -->
+          <b-btn
+            v-if="!user.id"
+            v-b-modal.login-modal
+            variant="primary"
+          >{{ $t('navbar.link.logIn') }}</b-btn>
+          <b-btn
+            v-if="user.id"
+             to="/facilities"
+            variant="primary"
+          >{{ $t('navbar.link.dashboard') }}</b-btn>
         </b-navbar-nav>
 
         <b-navbar-nav class="ml-auto">
@@ -31,6 +40,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import LocaleChanger from "@/components/navbar/LocaleChanger";
 import UserMenu from "@/components/navbar/UserMenu";
 
@@ -39,6 +49,9 @@ export default {
   components: {
     LocaleChanger,
     UserMenu,
+  },
+  computed: {
+    ...mapGetters("user", { user: "getUser" }),
   },
 };
 </script>

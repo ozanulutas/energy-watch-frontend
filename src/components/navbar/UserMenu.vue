@@ -22,13 +22,9 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "UserMenu",
-  data() {
-    return {};
-  },
   computed: {
     ...mapGetters("user", { user: "getUser" }),
   },
-
   methods: {
     ...mapActions("user", ["logout"]),
   },
