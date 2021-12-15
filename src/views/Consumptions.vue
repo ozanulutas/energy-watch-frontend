@@ -8,7 +8,7 @@
         <b-form-select
           v-model="searchParams.facility_id"
           :options="[
-          { value: null, text: 'Select a facility to search' },
+          { value: null, text: 'Select a facility to search', disabled: true },
           { value: 'all', text: 'All Records' },
           ...getFacilities
         ]"
