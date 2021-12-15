@@ -41,6 +41,8 @@
       :items="facilities"
       :fields="fields"
       responsive
+      outlined
+      table-class="rounded shadow"
     >
       <!-- Custom columns -->
       <template
