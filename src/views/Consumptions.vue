@@ -27,6 +27,16 @@
 
     <hr class="my-4">
 
+    
+    <b-alert
+      dismissible
+      fade
+      show
+    >
+      <i class="fas fa-exclamation-circle mr-1"></i>
+      {{ $t("customCol.alert.delete") }}
+    </b-alert>
+
     <div class="d-flex justify-content-between mb-2">
       <!-- Add new record -->
       <b-button
